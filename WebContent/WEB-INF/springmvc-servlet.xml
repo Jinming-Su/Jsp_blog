@@ -27,4 +27,25 @@
     	<property name="prefix" value="/view/"></property>
     	<property name="suffix" value=".jsp"></property>
     </bean>
+    
+    <!-- 获取数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/Jsp_blog"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value=""></property>
+	</bean>
+	<!-- 给jdbc模板注入数据源-->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 给userDao注入模板-->
+	<bean id="articleDao" class="com.sjming.dao.ArticleDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<!-- 给控制器注入dao类-->
+	<bean id="articleController" class="com.sjming.controller.ArticleController">
+		<property name="articleDao" ref="articleDao"></property>
+	</bean>
+    
 </beans>  

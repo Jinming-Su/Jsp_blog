@@ -6,7 +6,7 @@
 	<title>文章</title>
     <style>
         .table {
-            width: 900px;
+            width: 80%;
             margin: 0;
             margin-left: 10%;
             table-layout: fixed;
@@ -22,6 +22,9 @@
         .table thead {
             background-color: #d2d6de;
             opacity: 0.8;
+        }
+        .new_btn {
+        	
         }
     </style>
     <script>
@@ -55,6 +58,9 @@
                         	</td>
 						</tr>
 			</table>
+		</div>
+		<div class="col-md-2">
+			<a href="/Jsp_blog/article/create.do" class="btn btn-info new_btn"><i class="fa fa-file-text-o"></i> New Article</a>
 		</div>
 	</div>
 	
