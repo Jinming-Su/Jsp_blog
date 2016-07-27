@@ -16,8 +16,7 @@
 	
 	<!-- 扫描器 -->
 	<!--mvc:view-controller path="/hello.do" view-name="index"/-->
-	<mvc:view-controller path="/" view-name="index" />
-	<mvc:view-controller path="/index.do" view-name="index" />
+	<mvc:view-controller path="/" view-name="/index" />
 	<mvc:view-controller path="/aboutMe.do" view-name="about_me"/>
 	<context:component-scan base-package="com"/>
     
