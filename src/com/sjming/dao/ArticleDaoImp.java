@@ -1,4 +1,8 @@
-package com.sjming.model;
+package com.sjming.dao;
+
+import java.util.List;
+
+import com.sjming.model.ArticleVO;
 
 public interface ArticleDaoImp {
 	
@@ -6,4 +10,5 @@ public interface ArticleDaoImp {
 	public void delete(int aid);
 	public void update(ArticleVO articleVO);
 	public ArticleVO select(int aid);
+	public List<ArticleVO> find();
 }

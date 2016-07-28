@@ -48,4 +48,5 @@
 		<property name="articleDao" ref="articleDao"></property>
 	</bean>
     
+    
 </beans>  
