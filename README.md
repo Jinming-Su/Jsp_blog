@@ -2,7 +2,24 @@
 A universal blog
 
 ## version 0.1
-database table  
+### function  
+
+- [x] index.jsp  
+
+>  article
+   - [x] list.jsp
+   - [ ] detail.jsp
+   - [x] add.jsp
+   - [ ] edit.jsp  
+   
+> user
+   - [ ] login.jsp
+   - [ ] register.jsp
+   - [ ] session
+   - [ ] profile.jsp  
+
+
+### database table  
 article:  
 
 |name|type|
