@@ -13,8 +13,9 @@ A universal blog
    - [ ] edit.jsp  
    
 > user
-   - [ ] login.jsp
-   - [ ] register.jsp
+   - [x] login.jsp
+   - [x] register.jsp
+   - [x] validate
    - [ ] session
    - [ ] profile.jsp  
 
@@ -38,4 +39,5 @@ user:
 |uid|int pk|
 |email|varchar(20)|
 |password|varchar(20)|
+|created_time|timestamp|
 |score|int|
