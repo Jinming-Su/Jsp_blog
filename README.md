@@ -30,3 +30,12 @@ article:
 |key_word|varchar(50)|
 |auther|varchar(20)|
 |created_time|Date|
+
+user:  
+
+|name|type|
+|----|----|
+|uid|int pk|
+|email|varchar(20)|
+|password|varchar(20)|
+|score|int|
