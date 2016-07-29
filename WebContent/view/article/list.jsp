@@ -57,9 +57,11 @@
 	        return format;
 		}
         $(function(){
-        	var time = new Date(parseInt($("#created_time").html()));
-        	$("#created_time").html(time.format('yyyy-MM-dd h:m:s'));
-        	
+        	var times = $(".created_time");
+        	for(var i =0;i<times.length;i++) {
+        		var time = new Date(parseInt(times[i].innerHTML));
+        		times[i].innerHTML = time.format('yyyy-MM-dd h:m:s');
+        	}
         })
     </script>
 </head>
@@ -80,19 +82,23 @@
 				<c:forEach items="${articles}" var="article">
 					<tr>
                         <td class="text-center my_ellipsis">
-                            <a href="/article/">${article.title}</a>
+                            <a href="/Jsp_blog/article/${article.aid}.do">${article.title}</a>
                         </td>
-                        <td class="text-center my_ellipsis">${article.content}</td>
+                        <td class="text-center my_ellipsis">${article.key_word}</td>
                         <td class="text-center my_ellipsis">
                           	 	<a href="/profile/">${article.auther}</a>
                        	</td>
-                        <td class="text-center" id="created_time">${article.created_time}</td>
+                        <td class="text-center created_time">${article.created_time}</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
 		<div class="col-md-2">
+		<% if(session.getAttribute("loginUid") != null) {%>
 			<a href="/Jsp_blog/article/create.do" class="btn btn-info new_btn"><i class="fa fa-file-text-o"></i> New Article</a>
+		<%} else { %>
+			<a>登录后有更多权限</a>
+		<%} %>
 		</div>
 	</div>
 	

@@ -34,8 +34,10 @@ public class ArticleDao implements ArticleDaoImp {
 
 	public ArticleVO select(int aid) {
 		
-		
-		return null;
+		String sql = "select * from article where aid = ?";
+		return (ArticleVO)(jdbcTemplate.query(sql, new Object[]{
+				aid
+		}, new ArticleMapper()).get(0));
 	}
 	
 	/*

@@ -138,3 +138,37 @@ h1,h2,h3,h4,h5,hr {
     padding-left: 5px;
 }
 
+/*dashboard*/
+#dashboard_nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background:#333C47;
+    height: 100%;
+    width: 16%;
+    min-width: 156px;
+    color: #C5D0DE;
+}
+#dashboard_nav a {
+    color: #C5D0DE;
+}
+#dashboard_nav img {
+    width: 100px;
+    height: 100px;
+    margin: 5px 0px;
+}
+#dashboard_nav hr {
+    border-top: 1px solid #666;
+    margin-top: 5px 0px;
+}
+#dashboard_subnav li:first-child{
+    font-size: 20px;
+}
+#dashboard_subnav a:hover,
+#dashboard_subnav a:focus
+{
+    background-color: #24272D;
+}
+.dashboard_subnav_active {
+    background-color: #24272D;
+}

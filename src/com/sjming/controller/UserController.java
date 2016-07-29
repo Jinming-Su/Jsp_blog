@@ -5,6 +5,7 @@ import java.util.List;
 import javax.jws.WebParam.Mode;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.Session;
 import org.apache.catalina.startup.Embedded;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +43,7 @@ public class UserController {
 		if(flag == true) {
 			String username = email;
 			session.setAttribute("loginUid", users.get(0).getUid());
+			session.setAttribute("loginEmail", users.get(0).getEmail());
 			return "../index";
 		} else {
 			return "auth/login";
@@ -66,16 +68,29 @@ public class UserController {
 			model.addAttribute("error", "your password is wrong");
 			return "auth/register";
 		} else {
-			UserVO userVO = new UserVO(email, password);
+			UserVO userVO = new UserVO(email, password, 0);
 			userDao.insert(userVO);
 			return "auth/login";
 		}
 	}
 	
+	@RequestMapping("profile.do")
+	public String profile() {
+		
+		return "dashboard/profile";
+	}
+	
+	@RequestMapping("logout.do")
+	public String logout(HttpSession session) {
+		session.removeAttribute("loginUid");
+		session.removeAttribute("loginEmail");
+		return "../index";
+	}
+	
 	public UserDao getUserDao() {
 		return userDao;
 	}
-
+	
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
