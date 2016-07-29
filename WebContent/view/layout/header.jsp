@@ -11,8 +11,8 @@
 	</ul>
 	
 	<ul class="nav navbar-nav navbar-right">
-		<li><a href="/auth/login">登录</a></li>
-		<li><a href="/auth/register">注册</a></li>
+		<li><a href="/Jsp_blog/auth/login.do">登录</a></li>
+		<li><a href="/Jsp_blog/auth/register.do">注册</a></li>
 	</ul>
 	
 	<form class="navbar-form" role="search" action="#">

@@ -11,7 +11,6 @@
 </head>
 <body>
 	<%@include file="/view/layout/header.jsp" %>
-	
 	<div class="content" style="min-height: 300px">
 		<h1>I am mainPage</h1>
 	</div>
