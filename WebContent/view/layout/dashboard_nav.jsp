@@ -10,7 +10,7 @@
 	<ul class="nav nav-stacked" id="dashboard_subnav">
 		<li id="blog_manage"><a href="/Jsp_blog/"><i class="fa fa-th-large"></i><span>博客</span></a></li>
 		<li id="article_manage"><a href="/Jsp_blog/article/manage.do"><i class="fa fa-th-list"></i><span>文章管理</span></a></li>
-		<li id="user_manage"><a href=""><i class="fa fa-users"></i><span>用户管理</span></a></li>
+		<li id="user_manage"><a href="/Jsp_blog/auth/user_manage.do"><i class="fa fa-users"></i><span>用户管理</span></a></li>
 		<hr>
 		<li id="profile"><a href="/Jsp_blog/auth/profile.do"><i class="fa fa-user"></i><span>个人信息</span></a>
 		<li id="setting"><a href=""><i class="fa fa-cog"></i><span>设置</span></a></li>

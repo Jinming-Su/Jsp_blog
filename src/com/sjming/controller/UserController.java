@@ -87,6 +87,13 @@ public class UserController {
 		return "../index";
 	}
 	
+	@RequestMapping(value="/user_manage.do", method=RequestMethod.GET)
+	public String userManage(Model model) {
+		List<UserVO> users = userDao.find();
+		model.addAttribute("users", users);
+		return "dashboard/user_manage";
+	}
+	
 	public UserDao getUserDao() {
 		return userDao;
 	}
