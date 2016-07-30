@@ -6,12 +6,15 @@
 	<title>个人主页</title>
 	<script type="text/javascript">
 		$(function() {
-			$("#dashboard_profile").addClass("dashboard-subnav-active");
+			$("#profile").addClass("dashboard_subnav_active");
 		})
 	</script>
 </head>
 <body>
+	<%@include file="/view/layout/dashboard_header.jsp" %>
 	<%@include file="/view/layout/dashboard_nav.jsp" %>
-	
+	<div class="dashboard_content">
+		profile
+	</div>
 </body>
 </html>

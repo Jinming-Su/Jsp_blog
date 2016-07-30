@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<div class="navbar navbar-default header navabar-fixed-top" role="navigation">
+<div class="navbar navbar-default header navbar-fixed-top" role="navigation">
 	<div class="navbar-header">
 		<a class="navbar-brand">GOOD LUCK</a>
 	</div>

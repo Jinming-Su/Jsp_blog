@@ -65,6 +65,13 @@ public class ArticleController {
 		return "article/detail";
 	}
 	
+	@RequestMapping(value="/manage.do", method=RequestMethod.GET)
+	public String manage(Model model) {
+		List<ArticleVO> articles = articleDao.find();
+		model.addAttribute("articles", articles);
+		return "article/manage";
+	}
+	
 	public ArticleDao getArticleDao() {
 		return articleDao;
 	}
