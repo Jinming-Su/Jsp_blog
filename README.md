@@ -8,17 +8,24 @@ A universal blog
 
 >  article
    - [x] list.jsp
-   - [ ] detail.jsp
+   - [x] detail.jsp
    - [x] add.jsp
-   - [ ] edit.jsp  
+   - [x] edit.jsp  
    
 > user
    - [x] login.jsp
    - [x] register.jsp
    - [x] validate
-   - [ ] session
-   - [ ] profile.jsp  
+   - [x] session
+   
+> comment
+   - [ ] add
+   - [ ] list
 
+> dashboard  
+   - [ ] profile.jsp
+   - [ ] show_article.jsp
+   - [ ] show_comment.jsp
 
 ### database table  
 article:  
@@ -41,3 +48,12 @@ user:
 |password|varchar(20)|
 |created_time|timestamp|
 |score|int|
+
+comment:
+
+|name| type|
+|----|----|
+|cid|int pk|
+|aid|int|
+|uid|int|
+|create_time|timestamp|
