@@ -33,10 +33,10 @@ article:
 |name|type|
 |----|----|
 |aid|int primary key|
-|title|varchar(20)|
-|content|varchar(1000)|
-|key_word|varchar(50)|
-|auther|varchar(20)|
+|title|varchar(256)|
+|content|text|
+|key_word|varchar(256)|
+|auther|varchar(256)|
 |created_time|Date|
 
 user:  
@@ -44,8 +44,8 @@ user:
 |name|type|
 |----|----|
 |uid|int pk|
-|email|varchar(20)|
-|password|varchar(20)|
+|email|varchar(256)|
+|password|varchar(256)|
 |created_time|timestamp|
 |score|int|
 
@@ -54,6 +54,7 @@ comment:
 |name| type|
 |----|----|
 |cid|int pk|
+|content|text|
 |aid|int|
 |uid|int|
 |create_time|timestamp|
