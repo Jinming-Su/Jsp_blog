@@ -26,6 +26,9 @@ h1,h2,h3,h4,h5,hr {
     overflow: hidden;
     white-space: nowrap;
 }
+.my_table {
+	font-size: 15px;	
+}
 /*通用登陆表单模板*/
 .signin_box {
     width: 450px;

@@ -14,12 +14,14 @@ public class ArticleDao implements ArticleDaoImp {
 	private JdbcTemplate jdbcTemplate;
 
 	public void insert(ArticleVO articleVO) {
+		
 		String sql = "insert into article(title, content, key_word, auther) "
 				+ "values(?, ?, ?, ?)";
 		jdbcTemplate.update(sql, new Object[]{
 				articleVO.getTitle(), articleVO.getContent(),
 				articleVO.getKey_word(), articleVO.getAuther()
 		});
+		
 	}
 
 	public void delete(int aid) {

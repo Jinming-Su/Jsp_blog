@@ -46,12 +46,18 @@
 	<bean id="userDao" class="com.sjming.dao.UserDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
+	<bean id="commentDao" class="com.sjming.dao.CommentDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 	<!-- 给控制器注入dao类-->
 	<bean id="articleController" class="com.sjming.controller.ArticleController">
 		<property name="articleDao" ref="articleDao"></property>
+		<property name="commentDao" ref="commentDao"></property>
 	</bean>
     <bean id="userController" class="com.sjming.controller.UserController">
 		<property name="userDao" ref="userDao"></property>
 	</bean>
-    
+    <bean id="commentController" class="com.sjming.controller.CommentController">
+		<property name="commentDao" ref="commentDao"></property>
+	</bean>
 </beans>  

@@ -70,7 +70,7 @@
 	
 	<div class="content">
 		<div class="table-responsive col-md-10">
-			<table class="table table-striped table-hover table-bordered">
+			<table class="table table-striped table-hover my_table">
 				<thead>
                     <tr>
                         <td class="text-center" style="width: 15%">标题</td>

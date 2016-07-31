@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.portlet.ModelAndView;
 
 import com.sjming.dao.ArticleDao;
+import com.sjming.dao.CommentDao;
 import com.sjming.model.ArticleVO;
+import com.sjming.model.CommentVO;
 import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
 @Controller
@@ -23,6 +25,7 @@ import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 public class ArticleController {
 	
 	private ArticleDao articleDao; 	
+	private CommentDao commentDao;
 
 	@RequestMapping(value="/list.do", method=RequestMethod.GET)
 	public String list(Model model) {
@@ -60,6 +63,8 @@ public class ArticleController {
 	public String detail(@PathVariable int index, Model model) {
 		ArticleVO articleVO = articleDao.select(index);
 		model.addAttribute("article", articleVO);
+		List<CommentVO> comments = commentDao.find(index);
+		model.addAttribute("comments", comments);
 		return "article/detail";
 	}
 	
@@ -100,11 +105,19 @@ public class ArticleController {
 		articleDao.delete(aid);
 		return "redirect:../manage.do";
 	}
+	
+	
+	
 	public ArticleDao getArticleDao() {
 		return articleDao;
 	}
-
 	public void setArticleDao(ArticleDao articleDao) {
 		this.articleDao = articleDao;
+	}
+	public CommentDao getCommentDao() {
+		return commentDao;
+	}
+	public void setCommentDao(CommentDao commentDao) {
+		this.commentDao = commentDao;
 	}
 }

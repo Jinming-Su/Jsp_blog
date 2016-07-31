@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -61,6 +62,10 @@
        	.user_information span {
        		color: #e8554e;
        	}
+       	.user_content p {
+       		padding-top: 10px;
+       		min-height: 50px;
+       	}
        	.user_content form {
        		text-align: right;
        	}
@@ -70,6 +75,13 @@
        	.user_content form a:hover {
        		text-decoration: none;
        		cursor: pointer;
+       	}
+       	#form_comment{
+       		text-align: right;
+       	}
+       	#form_comment input{
+       		font-size: 12px;
+       		color: #e8554e;
        	}
         .md-preview {
         	padding: 20px !important;
@@ -123,16 +135,15 @@
             
             <div class="panel-footer">
             	<ul class="list-group">
+            	<c:forEach items="${comments}" var="comment">
             		<li class="list-group-item2">
             			<div class="text-center col-md-1 user_information">
             				<img class="img-circle" src="/Jsp_blog/img/image/person.png"/><br/>
-          					<span class="my_ellipsis" id="username">苏金明</span>
+          					<span class="my_ellipsis" id="username">${comment.uid }</span>
             			</div>
             			<div class="user_content col-md-11">
             				<p>
-            					对于个人而言，遇到的每一个陌生人，我都会假设他是一个好人，然后听听他到底想表达什么，看看他说的这些对我是否真的有作用。比如群里的一位用户 Miracle ，在人生经历和处事方面经验都比我丰富，在很多时候他给我的建议我都会好好思考一番，然后决定自己的取舍。
-            					对于个人而言，遇到的每一个陌生人，我都会假设他是一个好人，然后听听他到底想表达什么，看看他说的这些对我是否真的有作用。比如群里的一位用户 Miracle ，在人生经历和处事方面经验都比我丰富，在很多时候他给我的建议我都会好好思考一番，然后决定自己的取舍。
-            					对于个人而言，遇到的每一个陌生人，我都会假设他是一个好人，然后听听他到底想表达什么，看看他说的这些对我是否真的有作用。比如群里的一位用户 Miracle ，在人生经历和处事方面经验都比我丰富，在很多时候他给我的建议我都会好好思考一番，然后决定自己的取舍。
+            					${comment.content}
             				</p>
             				<form action="" method="post">
             					<span class="text-muted text-muted">time</span>
@@ -143,8 +154,9 @@
             			</div>
             			<div style="clear: both;"></div>
             		</li>
+            		</c:forEach>
             	</ul>
-            	<form action="" method="post" id="form_comment">
+            	<form action="/Jsp_blog/article/${article.aid}/comment/create.do" method="post" id="form_comment">
             		<textarea type="text" class="form-control" rows="3" name="content" placeholder="在这里输入你想说的0.0"></textarea>
           			<input type="submit" class="btn btn-default" value="评论"/>
             	</form>

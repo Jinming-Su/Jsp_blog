@@ -64,7 +64,7 @@
 	<div class="dashboard_content col-md-10">
 		<div class="manage_table">
 			<a class="btn btn_grey" href="/Jsp_blog/article/create.do">创建新文章</a>
-			<table class="table table-hover table-bordered">
+			<table class="table table-hover table-bordered my_table">
 				<thead>
                     <tr>
                     	<td class="text-center" style="width: 10%">编号</td>
