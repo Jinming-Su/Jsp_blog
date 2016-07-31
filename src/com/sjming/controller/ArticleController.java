@@ -36,15 +36,13 @@ public class ArticleController {
 	public String create() {
 		return "article/create";
 	}
+	
 	@RequestMapping(value="/create.do", method=RequestMethod.POST)
 	public String create2(String title, String content, String key_word, Model model, HttpSession session) {
 		Vector<String> error = new Vector<String>();
 		if(title.length() > 256 || title.length() == 0) {
 			error.add("标题不超过256个字符且不为空");
 		}
-		if(content.length() > 1000) {
-			error.add("内容不超过1000个字符");
-		} 
 		if(key_word.length() > 256) {
 			error.add("关键字不超过256个字符");
 		}
@@ -54,7 +52,7 @@ public class ArticleController {
 		} else {
 			ArticleVO articleVO = new ArticleVO(title,content,key_word, (String)session.getAttribute("loginEmail"));
 			articleDao.insert(articleVO);
-			return "article/list";
+			return "redirect:list.do";
 		}
 	}
 	

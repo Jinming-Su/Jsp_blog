@@ -2,32 +2,41 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
-	<%@include file="/view/layout/reference.jsp" %>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/Jsp_blog/plugs/bootstrap-markdown-editor/dist/css/bootstrap-markdown-editor.css" rel="stylesheet">
 	<title>${article.title }</title>
     <style>
+    	.content {
+            min-height: 650px;
+            padding-top: 30px !important;
+			padding-bottom: 50px !important;
+			background-color: #f7f7ee;
+        }
         .articles_index_panel {
             width: 70%;
             margin: 0 auto;
-            margin-top: 20px;
-        }
-        .content {
-            min-height: 650px;
-            padding-bottom: 100px;
+            margin-top: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 16px #888, 0 0 1px #888, 0 0 1px #888;   
         }
         .panel-heading {
             font-size: 25px;
-            font-style: oblique;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
         .panel-body {
-            font-style: oblique;
+        	padding: 0;
         }
         .panel-footer {
             font-size: 13px;
             text-align: right;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
-        .article_show_edit_btn {
-            margin-top: 5px;
-            padding: 5px 15px;
+        .md-preview {
+        	padding: 20px !important;
         }
     </style>
 	<script type="text/javascript">
@@ -62,17 +71,15 @@
 	</script>
 </head>
 <body>
-	<%@include file="/view/layout/header.jsp" %>
 	
 	 <div class="content">
         <div class="panel panel-default articles_index_panel">
             <div class="panel-heading">
                 <b>${article.title }</b>
-                <%if(session.getAttribute("loginUid") != null) {%>
-                    <a href="/article/{{$article->id}}/edit" class="btn btn-warning pull-right article_show_edit_btn">Edit</a>
-                <%} %>
             </div>
-            <div class="panel-body">${article.content }</div>
+            <div class="panel-body">
+            	<textarea id="editor" >${article.content}</textarea>
+            </div>
             <div class="panel-footer">
             	<span>${article.auther}</span>&nbsp;&nbsp;&nbsp;&nbsp;
             	<span id="created_time">${article.created_time}</span>
@@ -80,7 +87,48 @@
             
         </div>
 	</div>
-	
-	<%@include file="/view/layout/footer.jsp" %>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+    <script src="/Jsp_blog/plugs/bootstrap-markdown-editor/dist/js/bootstrap-markdown-editor.js"></script>
+    <script>
+        jQuery(document).ready(function($) {
+
+            $('#editor').markdownEditor({
+           		width: '100%',
+                height: '100%',
+                fontSize: '14px',
+                theme: 'tomorrow',
+                softTabs: false,
+                fullscreen: false,
+                imageUpload: false,
+                uploadPath: '',
+                preview: true,
+                onPreview: function (content, callback) {
+                    callback( marked(content) );
+                },
+                label: {
+                    btnHeader1: 'Header 1',
+                    btnHeader2: 'Header 2',
+                    btnHeader3: 'Header 3',
+                    btnBold: 'Bold',
+                    btnItalic: 'Italic',
+                    btnList: 'Unordered list',
+                    btnOrderedList: 'Ordered list',
+                    btnLink: 'Link',
+                    btnImage: 'Insert image',
+                    btnUpload: 'Upload image',
+                    btnEdit: 'Edit',
+                    btnPreview: 'Preview',
+                    btnFullscreen: 'Fullscreen',
+                    loading: 'Loading'
+                }
+            });
+			$('.md-toolbar').hide();
+			$('.btn-preview').click();
+			$('.md-container').css('height','100%');
+			$('.md-preview').css('overflow-y','hidden');
+        });
+    </script>
 </body>
 </html>
