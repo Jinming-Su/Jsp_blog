@@ -6,6 +6,8 @@
 	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="/Jsp_blog/plugs/bootstrap-markdown-editor/dist/css/bootstrap-markdown-editor.css" rel="stylesheet">
+    <!-- Loading Font Awesome -->
+	<link href="/Jsp_blog/css/vendor/awesome/css/font-awesome.css" rel="stylesheet">
 	<title>${article.title }</title>
     <style>
     	.content {
@@ -26,15 +28,49 @@
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
+        .extra_h {
+        	font-size: 13px !important;
+        	text-align: right;
+        }
+        .extra_h span {
+        	margin-right: 10px;
+        }
         .panel-body {
         	padding: 0;
         }
         .panel-footer {
             font-size: 13px;
-            text-align: right;
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
         }
+      	.list-group-item2 {
+      		position: relative;
+		    display: block;
+		    padding: 10px 0;
+		    margin-bottom: -1px;
+      	}
+      	.user_information {
+      		padding: 0;
+      	}
+       	.user_information img {
+       		width: 50px;
+			height: 50px;
+			padding: 0; 	
+			margin-bottom: 10px;	
+       	}
+       	.user_information span {
+       		color: #e8554e;
+       	}
+       	.user_content form {
+       		text-align: right;
+       	}
+       	.user_content form a {
+       		margin-left: 7px;
+       	}
+       	.user_content form a:hover {
+       		text-decoration: none;
+       		cursor: pointer;
+       	}
         .md-preview {
         	padding: 20px !important;
         }
@@ -75,14 +111,43 @@
 	 <div class="content">
         <div class="panel panel-default articles_index_panel">
             <div class="panel-heading">
-                <b>${article.title }</b>
+                <b>${article.title }</b><br/>
+                <div class="extra_h">
+               	 	<span id="auther">${article.auther}</span>
+            		<span id="created_time">${article.created_time}</span>
+            	</div>
             </div>
             <div class="panel-body">
             	<textarea id="editor" >${article.content}</textarea>
             </div>
+            
             <div class="panel-footer">
-            	<span>${article.auther}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            	<span id="created_time">${article.created_time}</span>
+            	<ul class="list-group">
+            		<li class="list-group-item2">
+            			<div class="text-center col-md-1 user_information">
+            				<img class="img-circle" src="/Jsp_blog/img/image/person.png"/><br/>
+          					<span class="my_ellipsis" id="username">苏金明</span>
+            			</div>
+            			<div class="user_content col-md-11">
+            				<p>
+            					对于个人而言，遇到的每一个陌生人，我都会假设他是一个好人，然后听听他到底想表达什么，看看他说的这些对我是否真的有作用。比如群里的一位用户 Miracle ，在人生经历和处事方面经验都比我丰富，在很多时候他给我的建议我都会好好思考一番，然后决定自己的取舍。
+            					对于个人而言，遇到的每一个陌生人，我都会假设他是一个好人，然后听听他到底想表达什么，看看他说的这些对我是否真的有作用。比如群里的一位用户 Miracle ，在人生经历和处事方面经验都比我丰富，在很多时候他给我的建议我都会好好思考一番，然后决定自己的取舍。
+            					对于个人而言，遇到的每一个陌生人，我都会假设他是一个好人，然后听听他到底想表达什么，看看他说的这些对我是否真的有作用。比如群里的一位用户 Miracle ，在人生经历和处事方面经验都比我丰富，在很多时候他给我的建议我都会好好思考一番，然后决定自己的取舍。
+            				</p>
+            				<form action="" method="post">
+            					<span class="text-muted text-muted">time</span>
+          						<a class="text-muted"><i class="fa fa-trash-o"></i>删除</a>
+          						<a class="text-muted"><i class="fa fa-reply"></i>回复</a>
+          						<a class="text-muted"><i class="fa fa-thumbs-o-up"></i>赞</a><br/>
+          					</form>
+            			</div>
+            			<div style="clear: both;"></div>
+            		</li>
+            	</ul>
+            	<form action="" method="post" id="form_comment">
+            		<textarea type="text" class="form-control" rows="3" name="content" placeholder="在这里输入你想说的0.0"></textarea>
+          			<input type="submit" class="btn btn-default" value="评论"/>
+            	</form>
             </div>
             
         </div>
