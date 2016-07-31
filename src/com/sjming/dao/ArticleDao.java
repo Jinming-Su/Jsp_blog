@@ -23,13 +23,18 @@ public class ArticleDao implements ArticleDaoImp {
 	}
 
 	public void delete(int aid) {
-		// TODO Auto-generated method stub
-
+		String sql = "delete from article where aid = ?";
+		jdbcTemplate.update(sql, new Object[] {
+				aid
+		});
 	}
 
 	public void update(ArticleVO articleVO) {
-		// TODO Auto-generated method stub
-
+		String sql = "update article set title = ?, content = ?, key_word = ? where aid = ?";
+		jdbcTemplate.update(sql, new Object[] {
+				articleVO.getTitle(), articleVO.getContent(),
+				articleVO.getKey_word(), articleVO.getAid()
+		});
 	}
 
 	public ArticleVO select(int aid) {

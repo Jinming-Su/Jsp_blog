@@ -89,8 +89,8 @@
                         <td class="text-center">test1</td>
                         <td class="text-center">test1</td>
                         <td class="text-center">
-                        	<a class="btn btn_grey" id="btn_edit">编辑</a>
-                        	<form action="" method="post" id="">
+                        	<a href="/Jsp_blog/article/${article.aid}/edit.do" class="btn btn_grey" id="btn_edit">编辑</a>
+                        	<form action="/Jsp_blog/article/${article.aid }/delete.do" method="post">
                         		<input class="btn btn_grey" id="btn_delete" type="submit" value="删除"/>
                         	</form>
                         </td>

@@ -70,6 +70,36 @@ public class ArticleController {
 		return "article/manage";
 	}
 	
+	@RequestMapping(value="/{aid}/edit.do", method=RequestMethod.GET)
+	public String edit(@PathVariable int aid, Model model) {
+		ArticleVO articleVO = articleDao.select(aid);
+		model.addAttribute("article", articleVO);
+		return "article/edit";
+	}
+	@RequestMapping(value="/{aid}/edit.do", method=RequestMethod.POST)
+	public String edit2(@PathVariable int aid, String title, String content, String key_word, Model model, HttpSession session) {
+		Vector<String> error = new Vector<String>();
+		if(title.length() > 256 || title.length() == 0) {
+			error.add("标题不超过256个字符且不为空");
+		}
+		if(key_word.length() > 256) {
+			error.add("关键字不超过256个字符");
+		}
+		if(error.size() > 0 ){
+			model.addAttribute("errors", error);
+			return "article/create";
+		} else {
+			ArticleVO articleVO = new ArticleVO(aid, title,content,key_word);
+			articleDao.update(articleVO);
+			return "redirect:../list.do";
+		}
+	}
+	
+	@RequestMapping(value="/{aid}/delete.do", method=RequestMethod.POST)
+	public String delete(@PathVariable int aid) {
+		articleDao.delete(aid);
+		return "redirect:../manage.do";
+	}
 	public ArticleDao getArticleDao() {
 		return articleDao;
 	}

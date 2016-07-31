@@ -20,6 +20,15 @@ public class ArticleVO {
 		this.auther = auther;
 		this.created_time = created_time;
 	}
+	
+	public ArticleVO(int aid, String title, String content, String key_word) {
+		super();
+		this.aid = aid;
+		this.title = title;
+		this.content = content;
+		this.key_word = key_word;
+	}
+
 	public ArticleVO(String title, String content, String key_word, String auther) {
 		super();
 		this.title = title;
