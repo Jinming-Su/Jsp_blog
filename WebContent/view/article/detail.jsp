@@ -113,8 +113,11 @@
 	        return format;
 		}
         $(function(){
-        	var time = new Date(parseInt($("#created_time").html()));
-        	$("#created_time").html(time.format('yyyy-MM-dd h:m:s'));
+        	var times = $(".created_time");
+        	for(var i =0;i<times.length;i++) {
+        		var time = new Date(parseInt(times[i].innerHTML));
+        		times[i].innerHTML = time.format('yyyy-MM-dd hh:mm:ss');
+        	}
         })
 	</script>
 </head>
@@ -126,7 +129,7 @@
                 <b>${article.title }</b><br/>
                 <div class="extra_h">
                	 	<span id="auther">${article.auther}</span>
-            		<span id="created_time">${article.created_time}</span>
+            		<span class="created_time">${article.created_time}</span>
             	</div>
             </div>
             <div class="panel-body">
@@ -146,7 +149,7 @@
             					${comment.content}
             				</p>
             				<form action="" method="post">
-            					<span class="text-muted text-muted">time</span>
+            					<span class="text-muted text-muted created_time">${comment.created_time}</span>
           						<a class="text-muted"><i class="fa fa-trash-o"></i>删除</a>
           						<a class="text-muted"><i class="fa fa-reply"></i>回复</a>
           						<a class="text-muted"><i class="fa fa-thumbs-o-up"></i>赞</a><br/>

@@ -47,6 +47,14 @@
 		.table {
 			background-color: white;
 		}
+		.table > thead > tr > th,
+        .table > tbody > tr > th,
+        .table > tfoot > tr > th,
+        .table > thead > tr > td,
+        .table > tbody > tr > td,
+        .table > tfoot > tr > td {
+            padding: 5px;
+        }
 		.btn_grey {
 			float: left;
 		}

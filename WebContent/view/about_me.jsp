@@ -12,7 +12,7 @@
 <body>
 	<%@include file="/view/layout/header.jsp" %>
 	
-	<div class="content" style="min-height: 300px">
+	<div class="content">
 		<h1>Do you want to know me?</h1>
 	</div>
 	

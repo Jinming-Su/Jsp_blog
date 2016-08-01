@@ -44,7 +44,7 @@ public class UserController {
 			String username = email;
 			session.setAttribute("loginUid", users.get(0).getUid());
 			session.setAttribute("loginEmail", users.get(0).getEmail());
-			return "../index";
+			return "redirect:../article/list/1.do";
 		} else {
 			return "auth/login";
 		}

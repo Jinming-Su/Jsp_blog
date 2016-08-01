@@ -1,0 +1,39 @@
+html,body{
+    height:100%;
+}
+.welcome_kdb_text{
+    font-size:50px;
+    position: absolute;
+    top:30%;
+    left:30%;
+}
+.welcome_btn{
+    font-size:18px;
+    width: 150px;
+    height: 45px;
+    border: 1px solid #580;
+    background: rgba(0,0,0,0);
+    display: table-cell;
+    vertical-align: middle;
+    position: absolute;
+    top:70%;
+    left:45%;
+    color: #580;
+    border-radius: 0;
+}
+.welcome_btn:hover{
+    background: rgba(0,0,0,0.1);
+    opacity: 0.5;
+}
+.welcome_marquee1 {
+	position: absolute;
+	top: 200px;
+	color: #f3f3f3;
+	opacity: 0.8;
+}
+.welcome_marquee2 {
+	position: absolute;
+	top: 300px;
+	color: #f3f3f3;
+	opacity: 0.8;
+}

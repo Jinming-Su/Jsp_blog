@@ -6,7 +6,7 @@ h1,h2,h3,h4,h5,hr {
     background-color: #f3f3f3;
     padding-bottom: 40px;
     padding-top: 0;
-    min-height: 360px;
+    min-height: 430px;
     height: 100%;
 }
 .active {
@@ -97,6 +97,16 @@ h1,h2,h3,h4,h5,hr {
     background-color: #bac1c8;
     border-radius: 0;
     margin-bottom: 0 !important;
+}
+.navbar-brand {
+	color: #f9f9b8 !important;
+	font-style: oblique;
+}
+.header_dropdown_menu {
+	min-width: 50% !important;
+	margin-top: 0px !important;
+	margin-right: 21px;
+	width: 60%;
 }
 .header_dropdown_menu li a{
     background-color: burlywood;
@@ -196,14 +206,12 @@ h1,h2,h3,h4,h5,hr {
     background-color: #24272D;
 }
 .dashboard_content {
-	
-	position: fixed;
 	background-color: #f3f3f3;
 	margin-top: 53px;
 	margin-left: 16%;
 	width: 84%;
 	height: 100%;
-	min-height: 500px;
+	min-height: 600px;
 }
 .btn_grey {
 	color: #333;

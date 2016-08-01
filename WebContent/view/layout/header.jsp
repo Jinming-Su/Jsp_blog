@@ -7,7 +7,7 @@
 	</div>
 	<ul class="nav navbar-nav">
 		<li><a href="/Jsp_blog/" id="mainPage">主页</a></li>
-		<li><a href="/Jsp_blog/article/list.do" id="article">文章</a></li>
+		<li><a href="/Jsp_blog/article/list/1.do" id="article">文章</a></li>
 		<li><a href="/Jsp_blog/aboutMe.do" id="about_me">关于</a></li>
 	</ul>
 	

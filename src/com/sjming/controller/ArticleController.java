@@ -1,10 +1,9 @@
 package com.sjming.controller;
 
-import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-import javax.jws.WebParam.Mode;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -12,13 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.portlet.ModelAndView;
 
 import com.sjming.dao.ArticleDao;
 import com.sjming.dao.CommentDao;
 import com.sjming.model.ArticleVO;
 import com.sjming.model.CommentVO;
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
 @Controller
 @RequestMapping("/article")
@@ -27,10 +24,26 @@ public class ArticleController {
 	private ArticleDao articleDao; 	
 	private CommentDao commentDao;
 
-	@RequestMapping(value="/list.do", method=RequestMethod.GET)
-	public String list(Model model) {
-		
+	@SuppressWarnings("null")
+	@RequestMapping(value="/list/{pageNum}.do", method=RequestMethod.GET)
+	public String list(@PathVariable int pageNum, Model model) {
+		List<ArticleVO> articles_all = articleDao.find();
+		Collections.reverse(articles_all);
 		List<ArticleVO> articles = articleDao.find();
+		articles.clear();
+		int articleNumInPage = 20;
+		int number = (pageNum-1)*articleNumInPage;
+		for(int i=number;i<articles_all.size()&&i<number+articleNumInPage;i++){
+			ArticleVO articleVO_tmp = articles_all.get(i);
+			articles.add(articleVO_tmp);
+		}
+		
+		int page_num = articles_all.size()/articleNumInPage;
+		if(articles_all.size()%articleNumInPage!=0){
+			page_num = page_num + 1;
+		}
+		model.addAttribute("page_num", page_num);
+		model.addAttribute("page_id", pageNum);
 		model.addAttribute("articles",articles);
 		return "article/list";
 	}
@@ -55,7 +68,7 @@ public class ArticleController {
 		} else {
 			ArticleVO articleVO = new ArticleVO(title,content,key_word, (String)session.getAttribute("loginEmail"));
 			articleDao.insert(articleVO);
-			return "redirect:list.do";
+			return "redirect:list/1.do";
 		}
 	}
 	
@@ -96,7 +109,7 @@ public class ArticleController {
 		} else {
 			ArticleVO articleVO = new ArticleVO(aid, title,content,key_word);
 			articleDao.update(articleVO);
-			return "redirect:../list.do";
+			return "redirect:../list/1.do";
 		}
 	}
 	
