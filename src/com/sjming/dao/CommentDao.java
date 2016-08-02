@@ -56,6 +56,10 @@ public class CommentDao implements CommentDaoImp {
 		}
 		
 	}
+	public List<CommentVO> find() {
+		String sql = "select * from comment";
+		return jdbcTemplate.query(sql, new CommentRowMapper());
+	}
 	
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;

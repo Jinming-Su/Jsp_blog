@@ -11,4 +11,5 @@ public interface CommentDaoImp {
 	public void update(CommentVO commentVO);
 	public CommentVO select(int cid);
 	public List<CommentVO> find(int aid);
+	public List<CommentVO> find();
 }

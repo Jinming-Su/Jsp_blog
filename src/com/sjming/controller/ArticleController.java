@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sjming.dao.ArticleDao;
+import com.sjming.dao.CatalogDao;
 import com.sjming.dao.CommentDao;
 import com.sjming.model.ArticleVO;
 import com.sjming.model.CommentVO;
@@ -23,6 +24,7 @@ public class ArticleController {
 	
 	private ArticleDao articleDao; 	
 	private CommentDao commentDao;
+	private CatalogDao catalogDao;
 
 	@SuppressWarnings("null")
 	@RequestMapping(value="/list/{pageNum}.do", method=RequestMethod.GET)
@@ -85,7 +87,7 @@ public class ArticleController {
 	public String manage(Model model) {
 		List<ArticleVO> articles = articleDao.find();
 		model.addAttribute("articles", articles);
-		return "article/manage";
+		return "dashboard/article_manage";
 	}
 	
 	@RequestMapping(value="/{aid}/edit.do", method=RequestMethod.GET)
@@ -132,5 +134,11 @@ public class ArticleController {
 	}
 	public void setCommentDao(CommentDao commentDao) {
 		this.commentDao = commentDao;
+	}
+	public CatalogDao getCatalogDao() {
+		return catalogDao;
+	}
+	public void setCatalogDao(CatalogDao catalogDao) {
+		this.catalogDao = catalogDao;
 	}
 }

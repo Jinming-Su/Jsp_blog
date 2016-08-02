@@ -8,9 +8,10 @@
 		<hr>
 	</div>
 	<ul class="nav nav-stacked" id="dashboard_subnav">
-		<li id="blog_manage"><a href="/Jsp_blog/"><i class="fa fa-th-large"></i><span>博客</span></a></li>
+		<li id="blog_manage"><a href="/Jsp_blog/article/list/1.do"><i class="fa fa-th-large"></i><span>博客</span></a></li>
 		<li id="article_manage"><a href="/Jsp_blog/article/manage.do"><i class="fa fa-th-list"></i><span>文章管理</span></a></li>
-		<li id="article_manage"><a href="/Jsp_blog/article/manage.do"><i class="fa fa-comment"></i><span>评论管理</span></a></li>
+		<li id="catalog_manage"><a href="/Jsp_blog/catalog/manage.do"><i class="fa fa-th"></i><span>分类管理</span></a></li>
+		<li id="comment_manage"><a href="/Jsp_blog/comment/manage.do"><i class="fa fa-comment"></i><span>评论管理</span></a></li>
 		<li id="user_manage"><a href="/Jsp_blog/auth/user_manage.do"><i class="fa fa-users"></i><span>用户管理</span></a></li>
 		<hr>
 		<li id="profile"><a href="/Jsp_blog/auth/profile.do"><i class="fa fa-user"></i><span>个人信息</span></a>

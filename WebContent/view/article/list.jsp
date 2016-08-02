@@ -13,7 +13,7 @@
         .table {
             width: 90%;
             margin: 0;
-            margin-left: 10%;
+            margin-left: 5%;
             table-layout: fixed;
         }
         .table > thead > tr > th,
@@ -30,6 +30,19 @@
         }
         .pagination li {
         	margin-right: -1px;
+        }
+        .my_panel {
+        	font-size: 15px;
+        	margin-top: 0 !important;
+        	border-radius: 0 !important;
+        }
+        .my_panel .panel-heading {
+        	margin: 0;
+        	padding: 1px;
+        	padding-left: 5%;
+        }
+        .my_panel .panel-heading a {
+        	color: #e8554e !important;
         }
     </style>
     <script>
@@ -78,30 +91,6 @@
 	<%@include file="/view/layout/header.jsp" %>
 
 	<div class="content">
-		<div class="col-md-2">
-			<div class="panel-group" id="accordion">
-				<div class="panel panel-default panel-accordion">
-					<div class="panel-heading">
-						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">test1</a>
-					</div>
-					<div class="panel-collapse collapse in" id="collapseOne">
-						<div class="panel-body">
-							内容
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-default panel-accordion">
-					<div class="panel-heading">
-						<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">test2</a>
-					</div>
-					<div class="panel-collapse collapse" id="collapseTwo">
-						<div class="panel-body">
-							内容
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="table-responsive col-md-10">
 			<table class="table table-striped table-hover my_table">
 				<thead>
@@ -126,6 +115,35 @@
 				</c:forEach>
 			</table>
 			<div class="text-center" id="callBackPager"></div>
+		</div>
+		<div class="col-md-2">
+			<div class="panel-group" id="accordion">
+				<div class="panel panel-default panel-accordion my_panel">
+					<div class="panel-heading">
+						<a><b class="text-info">分类导航</b></a>
+					</div>
+				</div>
+				<div class="panel panel-default panel-accordion my_panel">
+					<div class="panel-heading">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">test1</a>
+					</div>
+					<div class="panel-collapse collapse" id="collapseOne">
+						<div class="panel-body">
+							内容
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default panel-accordion my_panel">
+					<div class="panel-heading">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">test1</a>
+					</div>
+					<div class="panel-collapse collapse" id="collapseTwo">
+						<div class="panel-body">
+							内容
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<!--div class="col-md-2 text-center">
 		<% if(session.getAttribute("loginUid") != null) {%>

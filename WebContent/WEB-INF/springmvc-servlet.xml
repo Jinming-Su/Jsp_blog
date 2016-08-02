@@ -49,15 +49,43 @@
 	<bean id="commentDao" class="com.sjming.dao.CommentDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
+	<bean id="catalogDao" class="com.sjming.dao.CatalogDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 	<!-- 给控制器注入dao类-->
 	<bean id="articleController" class="com.sjming.controller.ArticleController">
 		<property name="articleDao" ref="articleDao"></property>
 		<property name="commentDao" ref="commentDao"></property>
+		<property name="catalogDao" ref="catalogDao"></property>
 	</bean>
     <bean id="userController" class="com.sjming.controller.UserController">
 		<property name="userDao" ref="userDao"></property>
 	</bean>
     <bean id="commentController" class="com.sjming.controller.CommentController">
 		<property name="commentDao" ref="commentDao"></property>
+	</bean>
+	<bean id="catalogController" class="com.sjming.controller.CatalogController">
+		<property name="catalogDao" ref="catalogDao"></property>
+	</bean>
+	
+	<!-- 从请求和响应读取／编写字符串 -->
+	<bean id="stringHtttpMessage" class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/plain;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 用于将对象转化为json -->
+	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="stringHtttpMessage"/>
+				<ref bean="jsonConverter"/>
+			</list>
+		</property>
 	</bean>
 </beans>  
