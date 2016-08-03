@@ -19,13 +19,14 @@ A universal blog
    - [x] session
    
 > comment
-   - [ ] add
-   - [ ] list
+   - [x] add
+   - [x] list
 
 > dashboard  
    - [ ] profile.jsp
-   - [ ] show_article.jsp
-   - [ ] show_comment.jsp
+   - [x] show_article.jsp
+   - [x] show_comment.jsp
+   - [x] catalog_manage
 
 ### database table  
 article:  
@@ -36,6 +37,8 @@ article:
 |title|varchar(256)|
 |content|text|
 |key_word|varchar(256)|
+|father_catalog|varchar(256)|
+|son_catalog|varchar(256)|
 |auther|varchar(256)|
 |created_time|Date|
 
@@ -58,3 +61,16 @@ comment:
 |aid|int|
 |uid|int|
 |create_time|timestamp|
+
+catalog:
+
+|name|type|
+|----|----|
+|clid|int|
+|id|int|
+|name|varchar(256)|
+|child1|varchar(256)|
+|child2|varchar(256)|
+|child3|varchar(256)|
+|child4|varchar(256)|
+|child5|varchar(256)|
