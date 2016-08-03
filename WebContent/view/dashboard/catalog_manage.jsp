@@ -14,12 +14,9 @@
 						"/Jsp_blog/catalog/ajaxcreate.do",
 						{},
 						function(data) {
-							$(".my_table").append('<tr><td class="text-center">'+data+'</td><td class="text-center"></td><td class="text-center my_ellipsis"><a href=""></a></td><td class="text-center my_ellipsis"><a href=""></a></td><td class="text-center my_ellipsis"><a href=""></a></td><td class="text-center my_ellipsis"><a href=""></a></td><td class="text-center my_ellipsis"><a href=""></a></td><td class="text-center my_ellipsis"><a href=""></a></td><td class="text-center"><a href="/Jsp_blog/catalog/${catalog.clid}/edit.do" class="btn btn_grey" id="btn_edit">编辑</a><form action="/Jsp_blog/catalog/${catalog.clid }/delete.do" method="post"><input class="btn btn_grey" id="btn_delete" type="submit" value="删除"/></form></td></tr>');
+							$(".my_table").append('<tr><td class="text-center">'+data+'</td><td class="text-center">0</td><td class="text-center my_ellipsis"><a href=""></a></td><td class="text-center my_ellipsis"><a href=""></a></td><td class="text-center my_ellipsis"><a href=""></a></td><td class="text-center my_ellipsis"><a href=""></a></td><td class="text-center my_ellipsis"><a href=""></a></td><td class="text-center my_ellipsis"><a href=""></a></td><td class="text-center"><a href="#mymodal" data-toggle="modal" class="btn btn_grey" id="btn_edit">编辑</a><div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h6 class="modal-title">目录编辑</h6></div><div class="modal-body"><form action="" method="post" class="form-group"><div class="row"><label class="col-md-3">编号：</label><input id="clid" type="text" class="col-md-8" value="'+data+'" disabled="disabled"/></div><div class="row"><label class="col-md-3">顺序：</label><input id="id'+data+'" type="text" class="col-md-8" value="0"/></div><div class="row"><label class="col-md-3">名称：</label><input id="name'+data+'" type="text" class="col-md-8" value=""/></div><div class="row"><label class="col-md-3">child1：</label><input id="child1'+data+'" type="text" class="col-md-8" value=""/></div><div class="row"><label class="col-md-3">child2：</label><input id="child2'+data+'" type="text" class="col-md-8" value=""/></div><div class="row"><label class="col-md-3">child3：</label><input id="child3'+data+'" type="text" class="col-md-8" value=""/></div><div class="row"><label class="col-md-3">child4：</label><input id="child4'+data+'" type="text" class="col-md-8" value=""/></div><div class="row"><label class="col-md-3">child5：</label><input id="child5'+data+'" type="text" class="col-md-8" value=""/></div></form></div><div class="modal-footer"><a type="button" class="btn btn-default" data-dismiss="modal">关闭</a><a id="update_catalog'+data+'" type="button" class="btn btn-primary">更新</a></div></div></div></div><form action="/Jsp_blog/catalog/'+data+'/delete.do" method="post"><input class="btn btn_grey" id="btn_delete" type="submit" value="删除"/></form></td></tr>');
 						}
 					);
-				
-				
-				
 			});
 		})		
 	</script>
@@ -94,7 +91,69 @@
                             <a href="">${catalog.child5}</a>
                         </td>
                         <td class="text-center">
-                        	<a href="/Jsp_blog/catalog/${catalog.clid}/edit.do" class="btn btn_grey" id="btn_edit">编辑</a>
+                        	<a href="#mymodal${catalog.clid }" data-toggle="modal" class="btn btn_grey" id="btn_edit">编辑</a>
+                        	<div class="modal fade" id="mymodal${catalog.clid }" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	                        	<div class="modal-dialog">
+	                        		<div class="modal-content">
+	                        			<div class="modal-header">
+	                        				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	                        				<h6 class="modal-title">目录编辑</h6>
+	                        			</div>
+	                        			<div class="modal-body">
+	                        				<form action="" method="post" class="form-group">
+	                        					<div class="row">
+	                        						<label class="col-md-3">编号：</label>
+	                        						<input id="clid${catalog.clid}" type="text" class="col-md-8" value="${catalog.clid }" disabled="disabled"/>
+	                        					</div>
+	                        					<div class="row">
+	                        						<label class="col-md-3">顺序：</label>
+	                        						<input id="id${catalog.clid}" type="text" class="col-md-8" value="${catalog.id }"/>
+	                        					</div>
+												<div class="row">
+	                        						<label class="col-md-3">名称：</label>
+	                        						<input id="name${catalog.clid}" type="text" class="col-md-8" value="${catalog.name }"/>
+	                        					</div>
+	                        					<div class="row">
+	                        						<label class="col-md-3">child1：</label>
+	                        						<input id="child1${catalog.clid}" type="text" class="col-md-8" value="${catalog.child1 }"/>
+	                        					</div>
+	                        					<div class="row">
+	                        						<label class="col-md-3">child2：</label>
+	                        						<input id="child2${catalog.clid}" type="text" class="col-md-8" value="${catalog.child2 }"/>
+	                        					</div>
+	                        					<div class="row">
+	                        						<label class="col-md-3">child3：</label>
+	                        						<input id="child3${catalog.clid}" type="text" class="col-md-8" value="${catalog.child3 }"/>
+	                        					</div>
+	                        					<div class="row">
+	                        						<label class="col-md-3">child4：</label>
+	                        						<input id="child4${catalog.clid}" type="text" class="col-md-8" value="${catalog.child4 }"/>
+	                        					</div>
+	                        					<div class="row">
+	                        						<label class="col-md-3">child5：</label>
+	                        						<input id="child5${catalog.clid}" type="text" class="col-md-8" value="${catalog.child5 }"/>
+	                        					</div>
+	                        				</form>
+	                        			</div>
+	                        			<div class="modal-footer">
+											<a type="button" class="btn btn-default" data-dismiss="modal">关闭</a>
+											<a id="update_catalog${catalog.clid}" type="button" class="btn btn-primary">更新</a>
+											<script type="text/javascript">
+											$("#update_catalog${catalog.clid}").click(function() {
+												$.post(
+													"/Jsp_blog/catalog/ajaxupdate.do",
+													{clid: $("#clid${catalog.clid}").val(), id: $("#id${catalog.clid}").val(), name: $("#name${catalog.clid}").val(),
+														child1: $("#child1${catalog.clid}").val(), child2: $("#child2${catalog.clid}").val(), child3: $("#child3${catalog.clid}").val(),
+														child4: $("#child4${catalog.clid}").val(), child5: $("#child5${catalog.clid}").val()},
+													function(){}
+												)
+												window.location.reload();
+											});
+											</script>
+										</div>
+	                        		</div>
+	                        	</div>
+	                        </div>
                         	<form action="/Jsp_blog/catalog/${catalog.clid }/delete.do" method="post">
                         		<input class="btn btn_grey" id="btn_delete" type="submit" value="删除"/>
                         	</form>

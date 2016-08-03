@@ -16,6 +16,7 @@ import com.sjming.dao.ArticleDao;
 import com.sjming.dao.CatalogDao;
 import com.sjming.dao.CommentDao;
 import com.sjming.model.ArticleVO;
+import com.sjming.model.CatalogVO;
 import com.sjming.model.CommentVO;
 
 @Controller
@@ -29,6 +30,7 @@ public class ArticleController {
 	@SuppressWarnings("null")
 	@RequestMapping(value="/list/{pageNum}.do", method=RequestMethod.GET)
 	public String list(@PathVariable int pageNum, Model model) {
+		/*分页*/
 		List<ArticleVO> articles_all = articleDao.find();
 		Collections.reverse(articles_all);
 		List<ArticleVO> articles = articleDao.find();
@@ -39,7 +41,6 @@ public class ArticleController {
 			ArticleVO articleVO_tmp = articles_all.get(i);
 			articles.add(articleVO_tmp);
 		}
-		
 		int page_num = articles_all.size()/articleNumInPage;
 		if(articles_all.size()%articleNumInPage!=0){
 			page_num = page_num + 1;
@@ -47,6 +48,14 @@ public class ArticleController {
 		model.addAttribute("page_num", page_num);
 		model.addAttribute("page_id", pageNum);
 		model.addAttribute("articles",articles);
+		/*分类导航*/
+		List<CatalogVO> catalogs = catalogDao.find();
+		for(int i=0;i<catalogs.size();i++) {
+			if(catalogs.get(i).getName() == null) {
+				catalogs.remove(i);
+			}
+		}
+		model.addAttribute("catalogs", catalogs);
 		return "article/list";
 	}
 	

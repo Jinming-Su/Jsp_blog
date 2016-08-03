@@ -33,7 +33,13 @@ public class CatalogDao implements CatalogDaoImp {
 	}
 
 	public void update(CatalogVO catalogVO) {
-
+		String sql = "update catalog set id = ?, name = ?, child1 = ?, child2 = ?, child3 = ?,"
+				+ "child4 = ?, child5 = ? where clid = ?";
+		jdbcTemplate.update(sql, new Object [] {
+			catalogVO.getId(), catalogVO.getName(),
+			catalogVO.getChild1(), catalogVO.getChild2(), catalogVO.getChild3(),
+			catalogVO.getChild4(), catalogVO.getChild5(), catalogVO.getClid()
+		});
 	}
 
 	public List<CatalogVO> find() {

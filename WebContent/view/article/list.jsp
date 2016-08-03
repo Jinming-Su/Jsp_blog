@@ -123,26 +123,32 @@
 						<a><b class="text-info">分类导航</b></a>
 					</div>
 				</div>
+				<c:forEach items="${catalogs }" var="catalog">
 				<div class="panel panel-default panel-accordion my_panel">
 					<div class="panel-heading">
-						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">test1</a>
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapse${catalog.clid }">${catalog.name }</a>
 					</div>
-					<div class="panel-collapse collapse" id="collapseOne">
+					<div class="panel-collapse collapse" id="collapse${catalog.clid }">
 						<div class="panel-body">
-							内容
+							<c:if test="${catalog.child1 != '' }">
+								${catalog.child1 }<br>
+							</c:if>
+							<c:if test="${catalog.child2 != '' }">
+								${catalog.child2 }<br>
+							</c:if>
+							<c:if test="${catalog.child3 != '' }">
+								${catalog.child3 }<br>
+							</c:if>
+							<c:if test="${catalog.child4 != '' }">
+								${catalog.child4 }<br>
+							</c:if>
+							<c:if test="${catalog.child5 != '' }">
+								${catalog.child5 }<br>
+							</c:if>
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-default panel-accordion my_panel">
-					<div class="panel-heading">
-						<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">test1</a>
-					</div>
-					<div class="panel-collapse collapse" id="collapseTwo">
-						<div class="panel-body">
-							内容
-						</div>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 		<!--div class="col-md-2 text-center">

@@ -2,6 +2,7 @@ package com.sjming.controller;
 
 import java.util.List;
 
+import org.apache.taglibs.standard.tag.el.sql.UpdateTag;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,21 @@ public class CatalogController {
 		catalogVO.setChild5(null);
 		catalogDao.insert(catalogVO);
 		return catalogDao.getMaxClid();
+	}
+	
+	@RequestMapping("/ajaxupdate.do")
+	public void update(int clid, int id, String name, String child1, String child2, String child3,
+			String child4, String child5) {
+		CatalogVO catalogVO = new CatalogVO();
+		catalogVO.setClid(clid);
+		catalogVO.setId(id);
+		catalogVO.setName(name);
+		catalogVO.setChild1(child1);
+		catalogVO.setChild2(child2);
+		catalogVO.setChild3(child3);
+		catalogVO.setChild4(child4);
+		catalogVO.setChild5(child5);
+		catalogDao.update(catalogVO);
 	}
 	
 	@RequestMapping("/manage.do")
