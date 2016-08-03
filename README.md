@@ -22,6 +22,11 @@ A universal blog
    - [x] add
    - [x] list
 
+> catalgo
+   - [x] add
+   - [x] edit
+   - [x] delete
+
 > dashboard  
    - [ ] profile.jsp
    - [x] show_article.jsp
