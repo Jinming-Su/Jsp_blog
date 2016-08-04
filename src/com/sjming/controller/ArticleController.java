@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sjming.dao.ArticleDao;
 import com.sjming.dao.CatalogDao;
@@ -60,12 +61,32 @@ public class ArticleController {
 	}
 	
 	@RequestMapping(value="/create.do", method=RequestMethod.GET)
-	public String create() {
+	public String create(Model model) {
+		List<CatalogVO> catalogs = catalogDao.find();
+		for(int i=0;i<catalogs.size();i++) {
+			if(catalogs.get(i).getName() == null) {
+				catalogs.remove(i);
+			}
+		}
+		model.addAttribute("catalogs", catalogs);
 		return "article/create";
 	}
 	
+	@RequestMapping("/create/ajax_select_son.do")
+	@ResponseBody
+	public CatalogVO getSelectSon(String select_father) {
+		List<CatalogVO> catalogs = catalogDao.find();
+		for(int i=0;i<catalogs.size();i++) {
+			if(select_father.equals(catalogs.get(i).getName())) {
+				return catalogs.get(i);
+			}
+		}
+		return null;
+	}
+	
 	@RequestMapping(value="/create.do", method=RequestMethod.POST)
-	public String create2(String title, String content, String key_word, Model model, HttpSession session) {
+	public String create2(String title, String content, String key_word, 
+			String father_catalog, String son_catalog, Model model, HttpSession session) {
 		Vector<String> error = new Vector<String>();
 		if(title.length() > 256 || title.length() == 0) {
 			error.add("标题不超过256个字符且不为空");
@@ -77,7 +98,8 @@ public class ArticleController {
 			model.addAttribute("errors", error);
 			return "article/create";
 		} else {
-			ArticleVO articleVO = new ArticleVO(title,content,key_word, (String)session.getAttribute("loginEmail"));
+			ArticleVO articleVO = new ArticleVO(title,content,key_word,
+					father_catalog, son_catalog, (String)session.getAttribute("loginEmail"));
 			articleDao.insert(articleVO);
 			return "redirect:list/1.do";
 		}
@@ -103,10 +125,19 @@ public class ArticleController {
 	public String edit(@PathVariable int aid, Model model) {
 		ArticleVO articleVO = articleDao.select(aid);
 		model.addAttribute("article", articleVO);
+		/*获取catalog*/
+		List<CatalogVO> catalogs = catalogDao.find();
+		for(int i=0;i<catalogs.size();i++) {
+			if(catalogs.get(i).getName() == null) {
+				catalogs.remove(i);
+			}
+		}
+		model.addAttribute("catalogs", catalogs);
 		return "article/edit";
 	}
 	@RequestMapping(value="/{aid}/edit.do", method=RequestMethod.POST)
-	public String edit2(@PathVariable int aid, String title, String content, String key_word, Model model, HttpSession session) {
+	public String edit2(@PathVariable int aid, String title, String content, String key_word, 
+			String father_catalog, String son_catalog, Model model, HttpSession session) {
 		Vector<String> error = new Vector<String>();
 		if(title.length() > 256 || title.length() == 0) {
 			error.add("标题不超过256个字符且不为空");
@@ -118,7 +149,7 @@ public class ArticleController {
 			model.addAttribute("errors", error);
 			return "article/create";
 		} else {
-			ArticleVO articleVO = new ArticleVO(aid, title,content,key_word);
+			ArticleVO articleVO = new ArticleVO(aid, title,content,key_word, father_catalog, son_catalog);
 			articleDao.update(articleVO);
 			return "redirect:../list/1.do";
 		}

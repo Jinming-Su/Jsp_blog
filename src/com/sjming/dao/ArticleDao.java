@@ -15,11 +15,12 @@ public class ArticleDao implements ArticleDaoImp {
 
 	public void insert(ArticleVO articleVO) {
 		
-		String sql = "insert into article(title, content, key_word, auther) "
-				+ "values(?, ?, ?, ?)";
+		String sql = "insert into article(title, content, key_word, father_catalog, son_catalog, auther) "
+				+ "values(?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql, new Object[]{
 				articleVO.getTitle(), articleVO.getContent(),
-				articleVO.getKey_word(), articleVO.getAuther()
+				articleVO.getKey_word(), articleVO.getfather_catalog(), 
+				articleVO.getSon_catalog(), articleVO.getAuther()
 		});
 		
 	}
@@ -32,10 +33,12 @@ public class ArticleDao implements ArticleDaoImp {
 	}
 
 	public void update(ArticleVO articleVO) {
-		String sql = "update article set title = ?, content = ?, key_word = ? where aid = ?";
+		String sql = "update article set title = ?, content = ?, key_word = ?, father_catalog = ?,"
+				+ "son_catalog = ? where aid = ?";
 		jdbcTemplate.update(sql, new Object[] {
 				articleVO.getTitle(), articleVO.getContent(),
-				articleVO.getKey_word(), articleVO.getAid()
+				articleVO.getKey_word(), articleVO.getfather_catalog(),
+				articleVO.getSon_catalog(), articleVO.getAid()
 		});
 	}
 
@@ -66,6 +69,8 @@ public class ArticleDao implements ArticleDaoImp {
 			articleVO.setTitle(rs.getString("title"));
 			articleVO.setContent(rs.getString("content"));
 			articleVO.setKey_word(rs.getString("key_word"));
+			articleVO.setfather_catalog(rs.getString("father_catalog"));
+			articleVO.setSon_catalog(rs.getString("son_catalog"));
 			articleVO.setAuther(rs.getString("auther"));
 			articleVO.setCreated_time(rs.getTimestamp("created_time").getTime());
 			return articleVO;

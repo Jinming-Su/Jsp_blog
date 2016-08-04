@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <title>创建新文章</title>
-
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="/Jsp_blog/plugs/bootstrap-markdown-editor/dist/css/bootstrap-markdown-editor.css" rel="stylesheet">
@@ -20,7 +20,38 @@
         	background-color: #d9534f;
         	margin-top: 10px;
         }
+        .select_catalog {
+        	width: 300px;
+        	float: left;
+        	margin-right: 50px;
+        	margin-bottom: 30px;
+        }
 	</style>
+	<script type="text/javascript">
+		$(function(){
+			
+			$("#select_father").change(function(){
+				$.post(
+					"/Jsp_blog/article/create/ajax_select_son.do",
+					{select_father: $("#select_father").val()},
+					function(data){
+						$("#select_son").empty();
+						if(data.child1 != null && data.child1!="")
+							$("#select_son").append('<option>'+data.child1+'</option>');
+						if(data.child1 != null && data.child2!="")
+							$("#select_son").append('<option>'+data.child2+'</option>');
+						if(data.child1 != null && data.child3!="")
+							$("#select_son").append('<option>'+data.child3+'</option>');
+						if(data.child1 != null && data.child4!="")
+							$("#select_son").append('<option>'+data.child4+'</option>');
+						if(data.child1 != null && data.child5!="")
+							$("#select_son").append('<option>'+data.child5+'</option>');
+					}
+				)
+			});
+		})
+		
+	</script>
 </head>
 <body>
 	<div class="content">
@@ -33,8 +64,7 @@
 			</div>
 			<div class="form-group">
                 <label><b>内容:</b></label>
-           		<textarea name="content" id="editor" ># Header Level 1
-标题
+           		<textarea name="content" id="editor" >标题
 ------
 
 #一级标题
@@ -67,7 +97,7 @@
 ```
 欢迎到访
 我是C++码农
-你可以在知乎、CSDN、简书搜索【果冻虾仁】找到我
+你可以在百度,CSDN搜索[sjming]找到
 ```
 该语法也可以实现代码高亮，见[代码高亮](#代码高亮)
 ###文字高亮
@@ -114,7 +144,7 @@ alt和title即对应HTML中的alt和title属性（都可省略）：
 
 URL即图片的url地址，如果引用本仓库中的图片，直接使用**相对路径**就可了，如果引用其他github仓库中的图片要注意格式，即：`仓库地址/raw/分支名/图片路径`，如：
 ```
-https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
+https://github.com/su526664687/ImageCache/raw/master/Logo/foryou.gif
 ```
 
 |#|语法|效果|
@@ -124,8 +154,9 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
 
 注意例2的写法使用了**URL标识符**的形式，在[链接](#链接)一节有介绍。
 >在文末有foryou的定义：
+
 ```
-[foryou]:https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
+[foryou]:https://github.com/su526664687/ImageCache/raw/master/Logo/foryou.gif
 ```
 
 链接
@@ -133,41 +164,49 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
 ###链接外部URL
 |#|语法|效果|
 |---|----|-----
-|1|`[我的博客](http://blog.csdn.net/guodongxiaren "悬停显示")`|[我的博客](http://blog.csdn.net/guodongxiaren "悬停显示")
+|1|`[我的博客](http://blog.csdn.net/u014451076/ "悬停显示")`|[我的博客](http://blog.csdn.net/u014451076/ "悬停显示")
 |2|`[我的知乎][zhihu] `|[我的知乎][zhihu] 
-|2|`[zhihu]:https://www.zhihu.com/people/jellywong "我的知乎，欢迎关注"`|   
 
 语法2由两部分组成：
 - 第一部分使用两个中括号，[ ]里的标识符（本例中zhihu），可以是数字，字母等的组合，标识符上下对应就行了（**姑且称之为URL标识符**）
 - 第二部分标记实际URL。
 
 >使用URL标识符能达到复用的目的，一般把全文所有的URL标识符统一放在文章末尾，这样看起来比较干净。
->>URL标识符是我起的名字，不知道是否准确。囧。。
-
-###链接本仓库里的URL
-|语法|效果|
-|----|-----
-|`[我的简介]|(/example/profile.md)`|[我的简介](/example/profile.md)
-|`[Book]|(./Book)`|[Book](/Book)
-
-###图片链接
-给图片加链接的本质是混合图片显示语法和普通的链接语法。普通的链接中[ ]内部是链接要显示的文本，而图片链接[ ]里面则是要显示的图片。  
-直接混合两种语法当然可以，但是十分啰嗦，为此我们可以使用URL标识符的形式。
-
-|#|语法|效果|
-|---|----|:---:
-|1|`[![weibo-logo]](http://weibo.com/linpiaochen)`|[![weibo-logo]](http://weibo.com/linpiaochen)
-|2|`[![](/img/zhihu.png "我的知乎，欢迎关注")][zhihu]`|[![](/img/zhihu.png "我的知乎，欢迎关注")][zhihu]|
-|3|`[![csdn-logo]][csdn]`|[![csdn-logo]][csdn]
-
-因为图片本身和链接本身都支持URL标识符的形式，所以图片链接也可以很简洁（见例3）。  
-注意，此时鼠标悬停时显示的文字是图片的title，而非链接本身的title了。
-
-           		</textarea>
+>>URL标识符是我起的名字，不知道是否准确。囧。。</textarea>
             </div>
             <div class="form-group">
                     <label><b>关键字:</b></label>
                     <input type="text" name="key_word" class="form-control">
+			</div>
+			<div class="form-group select_catalog">
+                    <label><b>总分类:</b></label>
+                    <select class="form-control" id="select_father" name="father_catalog">
+                    <c:forEach items="${catalogs }" var="catalog">
+                    <c:if test="${catalog.name != null }">
+                    	<option>${catalog.name }</option>
+                    </c:if>
+                    </c:forEach>
+                    </select>
+			</div>
+			<div class="form-group select_catalog">
+                    <label><b>子分类:</b></label>
+                    <select class="form-control" id="select_son" name="son_catalog">
+                    	<c:if test="${catalogs[0].child1 != '' }">
+                    		<option>${catalogs[0].child1}</option>
+                    	</c:if>
+                    	<c:if test="${catalogs[0].child2 != '' }">
+                    		<option>${catalogs[0].child2}</option>
+                    	</c:if>
+                    	<c:if test="${catalogs[0].child3 != '' }">
+                    		<option>${catalogs[0].child3}</option>
+                    	</c:if>
+                    	<c:if test="${catalogs[0].child4 != '' }">
+                    		<option>${catalogs[0].child4}</option>
+                    	</c:if>
+                    	<c:if test="${catalogs[0].child5 != '' }">
+                    		<option>${catalogs[0].child5}</option>
+                    	</c:if>
+                    </select>
 			</div>
 			<input type="submit" value="发布文章" class="btn btn-info form-control" id="submit">
 			<div class="create_error">
@@ -180,7 +219,6 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
     </div>
     </div>
 
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
