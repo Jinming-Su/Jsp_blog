@@ -7,7 +7,7 @@
 	<title>文章管理</title>
 	<script type="text/javascript">
 		$(function() {
-			$("#article_manage").parent().addClass("dashboard_subnav_active");
+			$("#article_manage").addClass("dashboard_subnav_active");
 		})
 		Date.prototype.format = function(format) {
 	      	var date = {

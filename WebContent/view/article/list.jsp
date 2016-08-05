@@ -115,7 +115,7 @@
 </head>
 <body>
 	<%@include file="/view/layout/header.jsp" %>
-
+	
 	<div class="content">
 		<div class="col-md-2">
 			<div class="panel-group" id="accordion">
@@ -287,7 +287,6 @@
 		<%} %>
 		</div-->
 		<div style="clear: both;"></div>
-	</div>
 	
 	<%@include file="/view/layout/footer.jsp" %>
 </body>

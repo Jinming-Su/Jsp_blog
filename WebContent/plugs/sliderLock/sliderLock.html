@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<!-- jQuery -->
+<script src="js/jquery-2.1.0.min.js"></script>
+<!-- Bootstrap -->
+<link rel="stylesheet" media="screen" href="css/bootstrap.min.css">
+<script src="js/bootstrap.min.js"></script>
+<!-- jQuery ui -->
+<link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet" media="screen">
+<script src="js/jquery-ui-1.10.4.min.js"></script>
+<!-- SliderLock -->
+<link href="css/sliderlock.css" rel="stylesheet" media="screen">
+<script src="js/sliderlock.js"></script>
+</head>
+<body>
+  <div class="container login" style="width: 970px !important;">
+    <div class="rom">
+      <div class="col-xs-8 login-box">
+        <h4>用户登陆</h4>
+        <form class="form-horizontal" role="form" method="post" action="#">
+          <div class="form-group">
+            <label for="login-name" class="col-xs-2 control-label">登陆名称</label>
+            <div class="col-xs-7">
+              <input type="text" name="login-name" class="form-control" id="login-name" placeholder="登陆名称"> <label class="control-label helplable" for="login-name">注册时填写的名称或者电子邮件</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="login-pass" class="col-xs-2 control-label">登陆密码</label>
+            <div class="col-xs-7">
+              <input type="password" name="login-pass" class="form-control" id="login-pass" placeholder="登陆密码"><label class="control-label helplable" for="login-pass">注册时填写的名称,忘记密码 <a href="/retrieve.shtml">点此找回</a></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sliderLock" class="col-xs-2 control-label">解锁验证</label>
+            <div class="col-xs-7">
+              <div id="slider" class="sliderLock">
+                <p>Slide to Unlock</p>
+              </div>
+              <label class="control-label helplable" for="sliderLock">用鼠标点击箭头向右滑动解锁</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="login-verify" class="col-xs-2 control-label">验证码</label>
+            <div class="col-xs-4">
+              <input type="text" name="login-verify" class="form-control" id="login-verify" placeholder="不需要输入验证码"><label class="control-label helplable" for="login-verify">点击验证码将会刷新</label>
+            </div>
+            <div class="col-xs-3">
+              <p class="form-control-static" style="padding: 0">不再需要的验证码</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-4">
+              <button type="submit" class="btn btn-primary btn-block">登 陆</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-xs-4 login-help">
+        <p>
+          还没有注册过？<a href="/register.shtml">点此注册</a>
+        </p>
+      </div>
+      <div class=""></div>
+    </div>
+  </div>
+</body>
+</html>

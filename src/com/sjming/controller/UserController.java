@@ -68,7 +68,7 @@ public class UserController {
 			model.addAttribute("error", "your password is wrong");
 			return "auth/register";
 		} else {
-			UserVO userVO = new UserVO(email, password, 0);
+			UserVO userVO = new UserVO(email, password);
 			userDao.insert(userVO);
 			return "auth/login";
 		}

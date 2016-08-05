@@ -30,6 +30,17 @@ h1,h2,h3,h4,h5,hr {
 	font-size: 15px;	
 }
 /*通用登陆表单模板*/
+.login_register_bottom {
+	color: #3c8dbc;
+}
+.login_register_bottom:hover {
+	color: #3c8dbc;
+	opacity: 0.7;
+}
+#login_modal .modal-content{
+	width: 80%;
+	background-color: #f3f3f3;
+}
 .signin_box {
     width: 450px;
     background: #fff;
@@ -67,6 +78,9 @@ h1,h2,h3,h4,h5,hr {
     height: 28px;
     padding-left: 40px;
     float: left;
+}
+.signin_box_user:focus {
+	outline: #ccc solid 1px;
 }
 .signin_box_cpt_p {
     width: 70%;
