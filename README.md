@@ -33,6 +33,12 @@ A universal blog
    - [x] show_comment.jsp
    - [x] catalog_manage
 
+### right level
+   
+* level 1 all
+* level 2 + create article
+* level 3 read, comment
+
 ### database table  
 article:  
 
@@ -79,3 +85,4 @@ catalog:
 |child3|varchar(256)|
 |child4|varchar(256)|
 |child5|varchar(256)|
+
