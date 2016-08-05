@@ -33,11 +33,16 @@ A universal blog
    - [x] show_comment.jsp
    - [x] catalog_manage
 
-### right level
+> right level
    
-* level 1 all
-* level 2 + create article
-* level 3 read, comment
+   - [ ] level 1 all
+   - [ ] level 2 + create article
+   - [ ] level 3 read, comment
+
+### manual
+
+* admin, uid = 1, level = 1, new user level = 3
+* comment once, add one score, when admin can grant right(level = 2 or level = 1)
 
 ### database table  
 article:  
@@ -55,13 +60,15 @@ article:
 
 user:  
 
-|name|type|
-|----|----|
-|uid|int pk|
-|email|varchar(256)|
-|password|varchar(256)|
-|created_time|timestamp|
-|score|int|
+|name|type|default|
+|----|----|----|
+|uid|int pk||
+|email|varchar(256)||
+|password|varchar(256)||
+|score|int|0|
+|level|int|3|
+|created_time|timestamp|current_timestamp|
+
 
 comment:
 
