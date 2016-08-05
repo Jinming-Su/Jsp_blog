@@ -66,6 +66,7 @@
 	</bean>
 	<bean id="catalogController" class="com.sjming.controller.CatalogController">
 		<property name="catalogDao" ref="catalogDao"></property>
+		<property name="articleDao" ref="articleDao"></property>
 	</bean>
 	
 	<!-- 从请求和响应读取／编写字符串 -->

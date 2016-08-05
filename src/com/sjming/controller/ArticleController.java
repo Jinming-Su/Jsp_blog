@@ -100,7 +100,8 @@ public class ArticleController {
 		} else {
 			ArticleVO articleVO = new ArticleVO(title,content,key_word,
 					father_catalog, son_catalog, (String)session.getAttribute("loginEmail"));
-			articleDao.insert(articleVO);
+			for(int i=0;i<10;i++)
+				articleDao.insert(articleVO);
 			return "redirect:list/1.do";
 		}
 	}

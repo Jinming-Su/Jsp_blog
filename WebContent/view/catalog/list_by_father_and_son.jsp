@@ -111,6 +111,12 @@
 				pageNumber : ${page_id}
 			},targetHerf);
         })
+        $(function(){
+        	$("#collapse${father_clid}").collapse();
+        })
+        $(function(){
+        	$("#${father_name}${son_name}").parent().addClass("catalog_son_active");
+        })
     </script>
 </head>
 <body>
@@ -152,6 +158,8 @@
 											 	+"1.do";
 										
 									}
+									
+									
 									
 									<!--异步获取总分类文章数-->
 									$.post(
@@ -255,6 +263,7 @@
 	
 		<div class="table-responsive col-md-10">
 			<table class="table table-striped table-hover my_table">
+				<caption class="text-muted" style="text-align: left;">${father_name} > ${son_name }</caption>
 				<thead>
                     <tr>
                         <td style="width: 20%">标题</td>
