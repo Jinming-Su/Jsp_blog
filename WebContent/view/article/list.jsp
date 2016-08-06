@@ -8,6 +8,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 	<%@include file="/view/layout/reference.jsp" %>
+	<link href="/Jsp_blog/plugs/sliderLock/css/jquery-ui-1.10.4.min.css" rel="stylesheet" media="screen">
+	<script src="/Jsp_blog/plugs/sliderLock/js/jquery-ui-1.10.4.min.js"></script>
+	<!-- SliderLock -->
+	<script src="/Jsp_blog/plugs/sliderLock/js/sliderlock2.js"></script>
 	<script src="/Jsp_blog/js/extendPagination.js"></script>
 	<title>文章</title>
     <style>
@@ -70,6 +74,19 @@
 		.catalog_son_active {
 			background-color: #ddd;
 		}
+		#slider {
+        	border-radius: 0;
+        }
+        #slider a{
+        	margin-top: 5px;
+        	height: 30px;
+        	width: 30px;
+        	font-size: 20px;
+        	text-align: center;
+        	margin-left: 0;
+        	padding-top: 2px;
+        	border-radius: 0;
+        }
     </style>
     <script>
         $(function() {

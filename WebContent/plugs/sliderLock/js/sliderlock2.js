@@ -1,5 +1,6 @@
 $(document).ready(function(){
-	$(":input").attr("disabled", "disabled");
+	$("#ipt_login_email").attr("disabled", "disabled");
+	$("#ipt_login_password").attr("disabled", "disabled");
 });
 
 
@@ -7,8 +8,8 @@ function refreshSwatch() {
 	$SliderValue=$('#slider').slider( "value" );
 	if($SliderValue==100){
 		$('#slider').slider( "value", 92 );
-		$(":input").removeAttr("disabled");
-		$("#register").attr("disabled","disabled");
+		$("#ipt_login_email").removeAttr("disabled");
+		$("#ipt_login_password").removeAttr("disabled");
 		$("#slider").unbind();
 	}
 }

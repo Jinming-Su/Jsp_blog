@@ -1,8 +1,10 @@
 package com.sjming.controller;
 
+import java.awt.geom.Ellipse2D;
 import java.util.List;
 
 import javax.jws.WebParam.Mode;
+import javax.net.ssl.SSLException;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Session;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sjming.dao.UserDao;
 import com.sjming.model.UserVO;
+import com.sun.org.apache.xml.internal.serializer.ElemDesc;
 import com.sun.xml.internal.ws.policy.EffectiveAlternativeSelector;
 
 import groovy.lang.IntRange;
@@ -30,7 +33,7 @@ public class UserController {
 		return "auth/login";
 	}
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
-	public String login2(String email, String password, HttpSession session) {
+	public String login2(String email, String password, Model model, HttpSession session) {
 		Boolean flag = false;
 		List<UserVO> users = userDao.selectByEmail(email);
 		if(users.size() == 0) {
@@ -41,12 +44,18 @@ public class UserController {
 			}
 		}
 		if(flag == true) {
-			String username = email;
 			session.setAttribute("loginUid", users.get(0).getUid());
 			session.setAttribute("loginEmail", users.get(0).getEmail());
-			return "redirect:../article/list/1.do";
+			session.setAttribute("loginLevel", users.get(0).getLevel());
+			model.addAttribute("info1", "登录成功");
+			model.addAttribute("info2", "博客主页");
+			model.addAttribute("url", "http://localhost:8080/Jsp_blog/article/list/1.do");
+			return "other/loading";
 		} else {
-			return "auth/login";
+			model.addAttribute("info1", "登录失败");
+			model.addAttribute("info2", "博客主页，进行重新登录");
+			model.addAttribute("url", "http://localhost:8080/Jsp_blog/article/list/1.do");
+			return "other/loading";
 		}
 	}
 	
@@ -64,20 +73,38 @@ public class UserController {
 				flag2 = true;
 			}
 		}
-		if(flag1 == false || flag2 == true) {
-			model.addAttribute("error", "your password is wrong");
+		
+		if(email == "") {
+			model.addAttribute("error", "邮箱不可为空");
 			return "auth/register";
-		} else {
+		} else if(password == "" || password_confirmation == "") {
+			model.addAttribute("error", "密码不可为空");
+			return "auth/register";
+		} else if(flag2 == true) {
+			model.addAttribute("error", "该邮箱不可用");
+			return "auth/register";
+		} else if(flag1 == false) {
+			model.addAttribute("error", "两次密码不一致");
+			return "auth/register";
+		}  else {
+			
+			model.addAttribute("info1", "注册成功");
+			model.addAttribute("info2", "博客主页");
+			model.addAttribute("url", "http://localhost:8080/Jsp_blog/article/list/1.do");
+			
 			UserVO userVO = new UserVO(email, password);
 			userDao.insert(userVO);
-			return "auth/login";
+			return "other/loading";
 		}
 	}
 	
 	@RequestMapping("profile.do")
-	public String profile() {
-		
-		return "dashboard/profile";
+	public String profile(HttpSession session) {
+		if(session.getAttribute("loginUid") != null) {
+			return "dashboard/profile";
+		} else {
+			return "other/404";
+		}
 	}
 	
 	@RequestMapping("logout.do")

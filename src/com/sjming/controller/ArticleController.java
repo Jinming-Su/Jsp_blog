@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sjming.dao.ArticleDao;
 import com.sjming.dao.CatalogDao;
 import com.sjming.dao.CommentDao;
+import com.sjming.dao.UserDao;
 import com.sjming.model.ArticleVO;
 import com.sjming.model.CatalogVO;
 import com.sjming.model.CommentVO;
+import com.sjming.model.UserVO;
 
 @Controller
 @RequestMapping("/article")
@@ -27,6 +29,7 @@ public class ArticleController {
 	private ArticleDao articleDao; 	
 	private CommentDao commentDao;
 	private CatalogDao catalogDao;
+	private UserDao userDao;
 
 	@SuppressWarnings("null")
 	@RequestMapping(value="/list/{pageNum}.do", method=RequestMethod.GET)
@@ -61,15 +64,27 @@ public class ArticleController {
 	}
 	
 	@RequestMapping(value="/create.do", method=RequestMethod.GET)
-	public String create(Model model) {
-		List<CatalogVO> catalogs = catalogDao.find();
-		for(int i=0;i<catalogs.size();i++) {
-			if(catalogs.get(i).getName() == null) {
-				catalogs.remove(i);
+	public String create(Model model, HttpSession session) {
+		if(session.getAttribute("loginUid") != null) {
+			//根据id获取用户
+			UserVO user = userDao.select((int) session.getAttribute("loginUid"));
+			if(user.getLevel() == 2||user.getLevel() == 1) {
+				List<CatalogVO> catalogs = catalogDao.find();
+				for(int i=0;i<catalogs.size();i++) {
+					if(catalogs.get(i).getName() == null) {
+						catalogs.remove(i);
+					}
+				}
+				model.addAttribute("catalogs", catalogs);
+				return "article/create";
+			} else {
+				return "other/404";
 			}
+			
+		} else {
+			return "other/404";
 		}
-		model.addAttribute("catalogs", catalogs);
-		return "article/create";
+		
 	}
 	
 	@RequestMapping("/create/ajax_select_son.do")
@@ -181,5 +196,11 @@ public class ArticleController {
 	}
 	public void setCatalogDao(CatalogDao catalogDao) {
 		this.catalogDao = catalogDao;
+	}
+	public UserDao getUserDao() {
+		return userDao;
+	}
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
 }

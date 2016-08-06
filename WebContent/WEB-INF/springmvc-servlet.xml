@@ -57,6 +57,7 @@
 		<property name="articleDao" ref="articleDao"></property>
 		<property name="commentDao" ref="commentDao"></property>
 		<property name="catalogDao" ref="catalogDao"></property>
+		<property name="userDao" ref="userDao"></property>
 	</bean>
     <bean id="userController" class="com.sjming.controller.UserController">
 		<property name="userDao" ref="userDao"></property>

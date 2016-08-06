@@ -43,14 +43,18 @@ public class UserDao implements UserDaoImp {
 			userVO.setUid(rs.getInt("uid"));
 			userVO.setEmail(rs.getString("email"));
 			userVO.setPassword(rs.getString("password"));
+			userVO.setScore(rs.getInt("score"));
+			userVO.setLevel(rs.getInt("level"));
 			userVO.setCreated_time(rs.getTimestamp("created_time").getTime());
 			return userVO;
 		}
 	}
 	
 	public UserVO select(int uid) {
-		
-		return null;
+		String sql = "select * from user where uid = ?";
+		return (UserVO) jdbcTemplate.query(sql, new Object [] {
+				uid
+		}, new userMapper()).get(0);
 	}
 	public List<UserVO> selectByEmail(String email) {
 		String sql = "select * from user where email = ?";

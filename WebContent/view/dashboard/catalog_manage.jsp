@@ -28,6 +28,7 @@
 		}
 		.table {
 			background-color: white;
+			table-layout: fixed;
 		}
 		.table > thead > tr > th,
         .table > tbody > tr > th,

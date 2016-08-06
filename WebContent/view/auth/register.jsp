@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 	<%@include file="/view/layout/reference.jsp" %>
 	<!-- jQuery ui -->
 	<link href="/Jsp_blog/plugs/sliderLock/css/jquery-ui-1.10.4.min.css" rel="stylesheet" media="screen">
 	<script src="/Jsp_blog/plugs/sliderLock/js/jquery-ui-1.10.4.min.js"></script>
 	<!-- SliderLock -->
-	<link href="/Jsp_blog/plugs/sliderLock/css/sliderlock.css" rel="stylesheet" media="screen">
 	<script src="/Jsp_blog/plugs/sliderLock/js/sliderlock.js"></script>
 	<title>注册</title>
     <style>
@@ -52,7 +52,7 @@
             <form action="/Jsp_blog/auth/register.do" method="post">
             	<div class="form-group signin_box_userbox">
 	                <span class="glyphicon glyphicon-envelope signin_box_gly"></span>
-	                <input type="email" name="email" class="form-control signin_box_user" placeholder="请输入注册的邮箱" tabindex="1">
+	                <input type="email" name="email" class="form-control signin_box_user" placeholder="请输入可以使用的邮箱" tabindex="1">
                 </div>
                 <div class="form-group signin_box_userbox ">
                     <span class="glyphicon glyphicon-lock signin_box_gly"></span>
@@ -69,12 +69,20 @@
     font-size: 15px;padding-left: 40px;" class="text-muted">请先滑动解锁</p>
           			</div>
           		</div>
-                <br>
+				
+				<c:if test="${error != null }">
+	          		<div class="form-group signin_box_userbox" style="height: 20px;font-size: 13px;background-color: #ffd2d2;">
+	                   	<c:forEach items="${error}" var="error">
+	                   	<span class="glyphicon glyphicon-remove-sign"></span>
+	                   	&nbsp;${error}<br/>
+	                   	</c:forEach>
+					</div>
+				</c:if>
                 <div class="row signin_box_row">
                 	<input type="checkbox" id="ckb"/><span>我同意<a href="https://github.com/su526664687/Jsp_blog" class="login_register_bottom">＜Sjming博客协议＞</a></span>
                 </div>
             	<div class="row signin_box_row">
-                    <input type="submit" value="注册" style="padding-top: 3px" class="btn btn-success pull-right">
+                    <input id="register" type="submit" value="注册" style="padding-top: 3px" class="btn btn-success pull-right">
                 </div>
             </form>
             <div class="row signin_box_row">
@@ -84,5 +92,19 @@
         </div>
         </div>
 	</div>
+	<script type="text/javascript">
+		$(function(){
+			$("#ckb").click(function(){
+				if($("#ckb").prop("checked")== true) {
+					$("#register").removeAttr("disabled");
+				} else {
+					$("#register").attr("disabled","disabled");
+				}
+			})
+			$("#register").click(function(){
+				$(this).button("loading");
+			})
+		})
+	</script>
 </body>
 </html>
