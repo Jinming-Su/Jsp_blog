@@ -138,8 +138,8 @@
 		</div>
 		<div class="table-responsive col-md-10">
 			<table class="table table-striped table-hover my_table">
-				<caption style="text-align: center">
-					结果是
+				<caption style="text-align: left">
+					搜索 "${key}" 结果如下：
 				</caption>
 				<thead>
                     <tr>

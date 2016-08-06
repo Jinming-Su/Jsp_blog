@@ -13,10 +13,10 @@
 		<li id="article_manage"><a href="/Jsp_blog/article/manage.do"><i class="fa fa-th-list"></i><span>文章管理</span></a></li>
 		<% if((session.getAttribute("loginLevel")).toString().equals("1")) {%>
 		<li id="catalog_manage"><a href="/Jsp_blog/catalog/manage.do"><i class="fa fa-th"></i><span>分类管理</span></a></li>
-		<li id="comment_manage"><a href="/Jsp_blog/comment/manage.do"><i class="fa fa-comment"></i><span>评论管理</span></a></li>
 		<li id="user_manage"><a href="/Jsp_blog/auth/user_manage.do"><i class="fa fa-users"></i><span>用户管理</span></a></li>
 		<%} %>
 		<%} %>
+		<li id="comment_manage"><a href="/Jsp_blog/comment/manage.do"><i class="fa fa-comment"></i><span>评论管理</span></a></li>
 		<hr>
 		<li id="profile"><a href="/Jsp_blog/auth/profile/<%=session.getAttribute("loginUid") %>.do"><i class="fa fa-user"></i><span>个人信息</span></a>
 		<li id="setting"><a href="/Jsp_blog/auth/setting.do"><i class="fa fa-cog"></i><span>设置</span></a></li>

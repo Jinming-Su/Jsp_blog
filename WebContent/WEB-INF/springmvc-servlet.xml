@@ -66,6 +66,7 @@
 	</bean>
     <bean id="commentController" class="com.sjming.controller.CommentController">
 		<property name="commentDao" ref="commentDao"></property>
+		<property name="userDao" ref="userDao"></property>
 	</bean>
 	<bean id="catalogController" class="com.sjming.controller.CatalogController">
 		<property name="catalogDao" ref="catalogDao"></property>
