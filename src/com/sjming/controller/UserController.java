@@ -9,6 +9,7 @@ import javax.net.ssl.SSLException;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Session;
+import org.apache.catalina.ha.session.SimpleTcpReplicationManager;
 import org.apache.catalina.startup.Embedded;
 import org.apache.el.MethodExpressionLiteral;
 import org.springframework.stereotype.Controller;
@@ -197,6 +198,21 @@ public class UserController {
 		List<UserVO> users = userDao.find();
 		model.addAttribute("users", users);
 		return "dashboard/user_manage";
+	}
+	
+	@RequestMapping(value="/{uid}/delete.do", method=RequestMethod.POST)
+	public String delete(@PathVariable int uid){
+		userDao.delete(uid);
+		return "redirect:../user_manage.do";
+	}
+	
+	@RequestMapping(value="/ajaxupdate.do")
+	public void ajaxUpdate(int uid, String email, int score, int level) {
+		UserVO userVO = userDao.select(uid);
+		userVO.setEmail(email);
+		userVO.setScore(score);
+		userVO.setLevel(level);
+		userDao.update(userVO);
 	}
 	
 	public UserDao getUserDao() {

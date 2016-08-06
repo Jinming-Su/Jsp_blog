@@ -22,8 +22,10 @@ public class UserDao implements UserDaoImp {
 
 	@Override
 	public void delete(int uid) {
-		// TODO Auto-generated method stub
-
+		String sql = "delete from user where uid = ?";
+		jdbcTemplate.update(sql, new Object []{
+				uid
+		});
 	}
 
 	@Override

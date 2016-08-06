@@ -72,13 +72,14 @@
 	<%@include file="/view/layout/dashboard_nav.jsp" %>
 	<div class="dashboard_content col-md-10">
 		<div class="manage_table">
-			<a class="btn btn_grey" href="/Jsp_blog/auth/create.do">创建新用户</a>
+
 			<table class="table table-hover table-bordered my_table">
 				<thead>
                     <tr>
                     	<td class="text-center" style="width: 10%">编号</td>
                         <td class="text-center" style="width: 15%">Email</td>
                         <td class="text-center"　style="width: 10%">积分</td>
+                        <td class="text-center"　style="width: 10%">权限等级</td>
                         <td class="text-center" style="width: 20%">创建时间</td>
                         <td class="text-center" style="width: 10%">文章数</td>
                         <td class="text-center" style="width: 10%">评论数</td>
@@ -94,12 +95,62 @@
                         <td class="text-center">
                           	 	<a href="/profile/">${user.score}</a>
                        	</td>
+                       	<td class="text-center">${user.level}</td>
                         <td class="text-center created_time">${user.created_time}</td>
                         <td class="text-center">test1</td>
                         <td class="text-center">test1</td>
                         <td class="text-center">
-                        	<a class="btn btn_grey" id="btn_edit">编辑</a>
-                        	<form action="" method="post">
+                        	<a href="#mymodal${user.uid}" data-toggle="modal" class="btn btn_grey" id="btn_edit">编辑</a>
+                        	<div class="modal fade" id="mymodal${user.uid}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	                        	<div class="modal-dialog">
+	                        		<div class="modal-content">
+	                        			<div class="modal-header">
+	                        				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	                        				<h6 class="modal-title">用户编辑</h6>
+	                        			</div>
+	                        			<div class="modal-body">
+	                        				<form action="" method="post" class="form-group">
+	                        					<div class="row">
+	                        						<label class="col-md-3">编号：</label>
+	                        						<input id="uid${user.uid}" type="text" class="col-md-8" value="${user.uid}" disabled="disabled"/>
+	                        					</div>
+	                        					
+												<div class="row">
+	                        						<label class="col-md-3">Email：</label>
+	                        						<input id="email${user.uid}" type="text" class="col-md-8" value="${user.email}"/>
+	                        					</div>
+	                        					<div class="row">
+	                        						<label class="col-md-3">积分：</label>
+	                        						<input id="score${user.score}" type="text" class="col-md-8" value="${user.score}"/>
+	                        					</div>
+	                        					<div class="row">
+	                        						<label class="col-md-3">权限等级：</label>
+	                        						<input id="level${user.level}" type="text" class="col-md-8" value="${user.level}"/>
+	                        					</div>
+	                        				</form>
+	                        			</div>
+	                        			<div class="modal-footer">
+											<a type="button" class="btn btn-default" data-dismiss="modal">关闭</a>
+											<a id="update_catalog${user.uid}" type="button" class="btn btn-primary">更新</a>
+											<script type="text/javascript">
+											$("#update_catalog${user.uid}").click(function() {
+												$.post(
+													"/Jsp_blog/auth/ajaxupdate.do",
+													{uid: $("#uid${user.uid}").val(),
+													 email: $("#email${user.uid}").val(),
+													 score: $("#score${user.score}").val(),
+													 level: $("#level${user.level}").val()},
+													function(){}
+												)
+												window.location.reload();
+											});
+											</script>
+										</div>
+	                        		</div>
+	                        	</div>
+	                        </div>
+                        	
+                        	<form action="/Jsp_blog/auth/${user.uid }/delete.do" method="post">
                         		<input class="btn btn_grey" id="btn_delete" type="submit" value="删除"/>
                         	</form>
                         </td>
