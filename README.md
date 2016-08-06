@@ -1,7 +1,14 @@
 # Jsp_blog
 A universal blog
 
-## version 0.1
+## version 1.1 
+
+> friend system
+   - [ ] add
+   - [ ] show
+   - [ ] statistics
+
+## version 1.0 : completed
 ### function  
 
 - [x] index.jsp  
@@ -28,16 +35,16 @@ A universal blog
    - [x] delete
 
 > dashboard  
-   - [ ] profile.jsp
+   - [x] profile.jsp
    - [x] show_article.jsp
    - [x] show_comment.jsp
    - [x] catalog_manage
 
 > right level
    
-   - [ ] level 1 all
-   - [ ] level 2 + create article
-   - [ ] level 3 read, comment
+   - [x] level 1 all
+   - [x] level 2 + create article
+   - [x] level 3 read, comment
 
 ### manual
 
