@@ -28,8 +28,15 @@ public class UserDao implements UserDaoImp {
 
 	@Override
 	public void update(UserVO userVO) {
-		// TODO Auto-generated method stub
-
+		String sql = "update user set email = ?, password = ?, score = ?, level = ?,"
+				+ "education = ?, address = ?, skill1 = ?, skill2 = ?, skill3 = ? "
+				+ "where uid = ?";
+		jdbcTemplate.update(sql, new Object []{
+				userVO.getEmail(), userVO.getPassword(), userVO.getScore(), userVO.getLevel(),
+				userVO.getEducation(), userVO.getAddress(), userVO.getSkill1(),
+				userVO.getSkill2(), userVO.getSkill3(),
+				userVO.getUid()
+		});
 	}
 
 	public List<UserVO> find() {
@@ -46,6 +53,11 @@ public class UserDao implements UserDaoImp {
 			userVO.setScore(rs.getInt("score"));
 			userVO.setLevel(rs.getInt("level"));
 			userVO.setCreated_time(rs.getTimestamp("created_time").getTime());
+			userVO.setEducation(rs.getString("education"));
+			userVO.setAddress(rs.getString("address"));
+			userVO.setSkill1(rs.getString("skill1"));
+			userVO.setSkill2(rs.getString("skill2"));
+			userVO.setSkill3(rs.getString("skill3"));
 			return userVO;
 		}
 	}

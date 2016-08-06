@@ -1,9 +1,14 @@
 package com.sjming.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
+import javax.jws.WebParam.Mode;
+import javax.naming.directory.SearchControls;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -61,6 +66,36 @@ public class ArticleController {
 		}
 		model.addAttribute("catalogs", catalogs);
 		return "article/list";
+	}
+	
+	@RequestMapping(value="/search/{key}/{pageNum}.do", method=RequestMethod.GET)
+	public String list1(@PathVariable String key, @PathVariable int pageNum, Model model) throws UnsupportedEncodingException {
+		key = URLDecoder.decode(key, "UTF-8");
+		/*分页*/
+		List<ArticleVO> articles_all = articleDao.search(key);
+		List<ArticleVO> articles = articleDao.find();
+		articles.clear();
+		int articleNumInPage = 20;
+		int number = (pageNum-1)*articleNumInPage;
+		for(int i=number;i<articles_all.size()&&i<number+articleNumInPage;i++){
+			ArticleVO articleVO_tmp = articles_all.get(i);
+			articles.add(articleVO_tmp);
+		}
+		int page_num = articles_all.size()/articleNumInPage;
+		if(articles_all.size()%articleNumInPage!=0){
+			page_num = page_num + 1;
+		}
+		model.addAttribute("page_num", page_num);
+		model.addAttribute("page_id", pageNum);
+		model.addAttribute("articles",articles);
+		
+		model.addAttribute("key", key);
+		return "article/search";
+	}
+	
+	@RequestMapping(value="/search.do", method=RequestMethod.POST)
+	public String search(String key) throws UnsupportedEncodingException {
+		return "redirect:search/"+URLEncoder.encode(URLEncoder.encode(key, "utf-8"))+"/1.do";
 	}
 	
 	@RequestMapping(value="/create.do", method=RequestMethod.GET)

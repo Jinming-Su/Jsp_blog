@@ -60,6 +60,11 @@ public class ArticleDao implements ArticleDaoImp {
 		return jdbcTemplate.query(sql, new ArticleMapper());
 	}
 	
+	public List<ArticleVO> search(String key) {
+		String sql = "select * from article where title like '%"+key+"%'";
+		return jdbcTemplate.query(sql, new ArticleMapper());
+	}
+	
 	private static final class ArticleMapper implements RowMapper{
 
 		@Override
@@ -85,6 +90,8 @@ public class ArticleDao implements ArticleDaoImp {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+
+	
 
 
 }

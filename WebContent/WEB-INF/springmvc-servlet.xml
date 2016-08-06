@@ -61,6 +61,8 @@
 	</bean>
     <bean id="userController" class="com.sjming.controller.UserController">
 		<property name="userDao" ref="userDao"></property>
+		<property name="articleDao" ref="articleDao"></property>
+		<property name="commentDao" ref="commentDao"></property>
 	</bean>
     <bean id="commentController" class="com.sjming.controller.CommentController">
 		<property name="commentDao" ref="commentDao"></property>

@@ -10,5 +10,6 @@ public interface ArticleDaoImp {
 	public void delete(int aid);
 	public void update(ArticleVO articleVO);
 	public ArticleVO select(int aid);
+	public List<ArticleVO> search(String key);
 	public List<ArticleVO> find();
 }

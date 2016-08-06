@@ -25,7 +25,7 @@
                 </a>
                 <ul class="dropdown-menu header_dropdown_menu" role="menu">
                     <li>
-                        <a href="/Jsp_blog/auth/profile.do" class="text-center"><img src="/Jsp_blog/img/image/person.png" width="80px" height="80px"></a>
+                        <a href="/Jsp_blog/auth/profile/<%=session.getAttribute("loginUid") %>.do" class="text-center"><img src="/Jsp_blog/img/image/person.png" width="80px" height="80px"></a>
                     </li>
                     <li>
                         <a href="/Jsp_blog/auth/logout.do">
@@ -37,9 +37,9 @@
 	<%} %>
 	</ul>
 	
-	<form class="navbar-form" role="search" action="#">
+	<form class="navbar-form" role="search" action="/Jsp_blog/article/search.do" method="post">
 		<div class="form-group">
-			<input type="text" class="form-control" placeholder="请输入要搜索的内容"/>
+			<input type="text" class="form-control" name="key" placeholder="请输入要搜索的内容"/>
 		</div>
 		<button type="submit" class="btn btn-success">搜索</button>
 	</form>

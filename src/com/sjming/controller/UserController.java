@@ -1,6 +1,7 @@
 package com.sjming.controller;
 
 import java.awt.geom.Ellipse2D;
+import java.util.Collections;
 import java.util.List;
 
 import javax.jws.WebParam.Mode;
@@ -9,14 +10,21 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Session;
 import org.apache.catalina.startup.Embedded;
+import org.apache.el.MethodExpressionLiteral;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sjming.dao.ArticleDao;
+import com.sjming.dao.CommentDao;
 import com.sjming.dao.UserDao;
+import com.sjming.model.ArticleVO;
+import com.sjming.model.CommentVO;
 import com.sjming.model.UserVO;
+import com.sun.java.swing.plaf.motif.resources.motif;
 import com.sun.org.apache.xml.internal.serializer.ElemDesc;
 import com.sun.xml.internal.ws.policy.EffectiveAlternativeSelector;
 
@@ -27,6 +35,8 @@ import groovy.lang.IntRange;
 public class UserController {
 
 	private UserDao userDao;
+	private ArticleDao articleDao;
+	private CommentDao commentDao;
 
 	@RequestMapping(value="/ajax_getname_by_uid", method=RequestMethod.POST)
 	@ResponseBody
@@ -105,10 +115,64 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping("profile.do")
-	public String profile(HttpSession session) {
+	@RequestMapping("/profile/{uid}.do")
+	public String profile(@PathVariable int uid, HttpSession session, Model model) {
 		if(session.getAttribute("loginUid") != null) {
+			UserVO userVO = userDao.select(uid);
+			
+			List<ArticleVO> articles = articleDao.find();
+			Collections.reverse(articles);
+			for(int i=0;i<articles.size();i++) {
+				if(!(articles.get(i).getAuther().equals(userVO.getEmail()))) {
+					articles.remove(i);
+					i--;
+				}
+			}
+			
+			List<CommentVO> comments = commentDao.find();
+			for(int i=0;i<comments.size();i++) {
+				if(!(comments.get(i).getUid() == uid )) {
+					comments.remove(i);
+					i--;
+				}
+			}
+			
+			model.addAttribute("user", userVO);
+			model.addAttribute("articles", articles);
+			model.addAttribute("comments", comments);
 			return "dashboard/profile";
+		} else {
+			return "other/404";
+		}
+	}
+	
+	@RequestMapping(value="setting.do", method=RequestMethod.GET)
+	public String setting1(HttpSession session, Model model) {
+		if(session.getAttribute("loginUid") != null) {
+			UserVO user = userDao.select((int)session.getAttribute("loginUid"));
+			model.addAttribute("user", user);
+			return "dashboard/setting";
+		} else {
+			return "other/404";
+		}
+	}
+	
+	@RequestMapping(value="/setting.do", method=RequestMethod.POST)
+	public String setting2(String education, String address, 
+						   String skill1, String skill2, String skill3,
+						   HttpSession session, Model model) {
+		if(session.getAttribute("loginUid") != null) {
+			
+			UserVO user = userDao.select((int)session.getAttribute("loginUid"));
+			user.setEducation(education);
+			user.setAddress(address);
+			user.setSkill1(skill1);
+			user.setSkill2(skill2);
+			user.setSkill3(skill3);
+			userDao.update(user);
+			
+			model.addAttribute("user", user);
+			return "dashboard/setting";
 		} else {
 			return "other/404";
 		}
@@ -134,5 +198,19 @@ public class UserController {
 	
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+	
+	public ArticleDao getArticleDao() {
+		return articleDao;
+	}
+
+	public void setArticleDao(ArticleDao articleDao) {
+		this.articleDao = articleDao;
+	}
+	public CommentDao getCommentDao() {
+		return commentDao;
+	}
+	public void setCommentDao(CommentDao commentDao) {
+		this.commentDao = commentDao;
 	}
 }

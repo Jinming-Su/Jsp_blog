@@ -163,7 +163,7 @@
             					${comment.content}
             				</p>
             				<form action="" method="post">
-            					<span class="text-muted text-muted created_time">${comment.created_time}</span>
+            					<span class="text-muted created_time">${comment.created_time}</span>
           						<a class="text-muted"><i class="fa fa-trash-o"></i>删除</a>
           						<a class="text-muted"><i class="fa fa-reply"></i>回复</a>
           						<a class="text-muted"><i class="fa fa-thumbs-o-up"></i>赞</a><br/>
