@@ -45,6 +45,13 @@ public class UserController {
 		return userVO.getEmail();
 	}
 	
+	@RequestMapping(value="/ajax_getuid_by_email.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int ajaxGetUidByEmail(String email) {
+		UserVO userVO = userDao.selectByEmail(email).get(0);
+		return userVO.getUid();
+	}
+	
 	@RequestMapping(value="/login.do", method=RequestMethod.GET)
 	public String login() {
 		return "auth/login";

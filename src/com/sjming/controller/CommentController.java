@@ -35,6 +35,22 @@ public class CommentController {
 		return "dashboard/comment_manage";
 	}
 	
+	@RequestMapping(value="/comment/{cid}/delete.do")
+	public String delete(@PathVariable int cid) {
+		
+		commentDao.delete(cid);
+		return "redirect:../manage.do";
+	}
+	
+	
+	@RequestMapping(value="/comment/ajaxupdate.do", method=RequestMethod.POST)
+	public void ajaxUpdate(int cid, String content) {
+		CommentVO comment = commentDao.select(cid);
+		comment.setContent(content);
+
+		commentDao.update(comment);
+	}
+	
 	public CommentDao getCommentDao() {
 		return commentDao;
 	}

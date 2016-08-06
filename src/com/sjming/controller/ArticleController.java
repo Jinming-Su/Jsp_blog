@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
 
@@ -59,6 +60,11 @@ public class ArticleController {
 		model.addAttribute("articles",articles);
 		/*分类导航*/
 		List<CatalogVO> catalogs = catalogDao.find();
+		Collections.sort(catalogs, new Comparator<CatalogVO>() {
+			public int compare(CatalogVO catalogVO1, CatalogVO catalogVO2) {
+				return catalogVO1.getId() - catalogVO2.getId();
+			}
+		});
 		for(int i=0;i<catalogs.size();i++) {
 			if(catalogs.get(i).getName() == null) {
 				catalogs.remove(i);
@@ -167,6 +173,7 @@ public class ArticleController {
 	@RequestMapping(value="/manage.do", method=RequestMethod.GET)
 	public String manage(Model model, HttpSession session) {
 		List<ArticleVO> articles = articleDao.find();
+		Collections.reverse(articles);
 		if(session.getAttribute("loginLevel").toString().equals("1")) {
 			model.addAttribute("articles", articles);
 			return "dashboard/article_manage";

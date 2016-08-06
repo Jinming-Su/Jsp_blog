@@ -24,16 +24,24 @@ public class CommentDao implements CommentDaoImp {
 	}
 
 	public void delete(int cid) {
-
+		String sql = "delete from comment where cid = ?";
+		jdbcTemplate.update(sql, new Object []{
+				cid
+		});
 	}
 
 	public void update(CommentVO commentVO) {
-
+		String sql = "update comment set content = ? where cid = ?";
+		jdbcTemplate.update(sql, new Object[]{
+				commentVO.getContent(), commentVO.getCid()
+		});
 	}
 
 	public CommentVO select(int cid) {
-
-		return null;
+		String sql = "select * from comment where cid = ?";
+		return (CommentVO) jdbcTemplate.query(sql, new Object []{
+				cid
+		}, new CommentRowMapper()).get(0);
 	}
 
 	public List<CommentVO> find(int aid) {

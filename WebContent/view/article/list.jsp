@@ -287,7 +287,18 @@
                         </td>
                         <td class="text-center my_ellipsis">${article.key_word}</td>
                         <td class="text-center my_ellipsis">
-                          	 	<a href="/profile/">${article.auther}</a>
+                          	 	<a id="${article.aid}">${article.auther}</a>
+                          	 	<script type="text/javascript">
+                          	 		$(function(){
+                          	 			$.post(
+                          	 				"/Jsp_blog/auth/ajax_getuid_by_email.do",
+                          	 				{email: "${article.auther}"},
+                          	 				function(data){
+                          	 					$("#${article.aid}").attr("href", "/Jsp_blog/auth/profile/"+data+".do");
+                          	 				}
+                          	 			)                          	 			
+                          	 		})
+                          	 	</script>
                        	</td>
                         <td class="text-center created_time">${article.created_time}</td>
 					</tr>
@@ -296,13 +307,6 @@
 			<div class="text-center" id="callBackPager"></div>
 		</div>
 		
-		<!--div class="col-md-2 text-center">
-		<% if(session.getAttribute("loginUid") != null) {%>
-			<a href="/Jsp_blog/article/create.do" class="btn btn-info new_btn"><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;&nbsp;创建新文章</a>
-		<%} else { %>
-			<a>登录后有更多权限</a>
-		<%} %>
-		</div-->
 		<div style="clear: both;"></div>
 	</div>
 	<%@include file="/view/layout/footer.jsp" %>

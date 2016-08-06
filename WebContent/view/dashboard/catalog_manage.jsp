@@ -76,22 +76,22 @@
 						<td class="text-center">${catalog.clid}</td>
 						<td class="text-center">${catalog.id}</td>
                         <td class="text-center my_ellipsis">
-                            <a href="">${catalog.name}</a>
+                            <span href="">${catalog.name}</span>
                         </td>
                         <td class="text-center my_ellipsis">
-                            <a href="">${catalog.child1}</a>
+                            <span href="">${catalog.child1}</span>
                         </td>
                         <td class="text-center my_ellipsis">
-                            <a href="">${catalog.child2}</a>
+                            <span href="">${catalog.child2}</span>
                         </td>
                         <td class="text-center my_ellipsis">
-                            <a href="">${catalog.child3}</a>
+                            <span href="">${catalog.child3}</span>
                         </td>
                         <td class="text-center my_ellipsis">
-                            <a href="">${catalog.child4}</a>
+                            <span href="">${catalog.child4}</span>
                         </td>
                         <td class="text-center my_ellipsis">
-                            <a href="">${catalog.child5}</a>
+                            <span href="">${catalog.child5}</span>
                         </td>
                         <td class="text-center">
                         	<a href="#mymodal${catalog.clid }" data-toggle="modal" class="btn btn_grey" id="btn_edit">编辑</a>

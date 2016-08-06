@@ -3,6 +3,7 @@ package com.sjming.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.taglibs.standard.tag.el.sql.UpdateTag;
@@ -60,6 +61,11 @@ public class CatalogController {
 		/*分类导航*/
 		int father_clid = 0;
 		List<CatalogVO> catalogs = catalogDao.find();
+		Collections.sort(catalogs, new Comparator<CatalogVO>() {
+			public int compare(CatalogVO catalogVO1, CatalogVO catalogVO2) {
+				return catalogVO1.getId() - catalogVO2.getId();
+			}
+		});
 		for(int i=0;i<catalogs.size();i++) {
 			if(catalogs.get(i).getName()!=null && (catalogs.get(i).getName()).equals(father_name)) {
 				father_clid = catalogs.get(i).getClid();
@@ -111,6 +117,11 @@ public class CatalogController {
 		/*分类导航*/
 		int father_clid = 0;
 		List<CatalogVO> catalogs = catalogDao.find();
+		Collections.sort(catalogs, new Comparator<CatalogVO>() {
+			public int compare(CatalogVO catalogVO1, CatalogVO catalogVO2) {
+				return catalogVO1.getId() - catalogVO2.getId();
+			}
+		});
 		for(int i=0;i<catalogs.size();i++) {
 			if(catalogs.get(i).getName()!=null && (catalogs.get(i).getName()).equals(father_name)) {
 				father_clid = catalogs.get(i).getClid();

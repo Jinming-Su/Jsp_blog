@@ -97,8 +97,47 @@
                        	</td>
                         <td class="text-center created_time">${comment.created_time}</td>
                         <td class="text-center">
-                        	<a href="/Jsp_blog/article/${article.aid}/edit.do" class="btn btn_grey" id="btn_edit">编辑</a>
-                        	<form action="/Jsp_blog/article/${article.aid }/delete.do" method="post">
+                        	<a href="#mymodal${comment.cid}" data-toggle="modal" class="btn btn_grey" id="btn_edit">编辑</a>
+                        	<div class="modal fade" id="mymodal${comment.cid}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	                        	<div class="modal-dialog">
+	                        		<div class="modal-content">
+	                        			<div class="modal-header">
+	                        				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	                        				<h6 class="modal-title">评论编辑</h6>
+	                        			</div>
+	                        			<div class="modal-body">
+	                        				<form action="" method="post" class="form-group">
+	                        					<div class="row">
+	                        						<label class="col-md-3">编号：</label>
+	                        						<input id="cid${comment.cid}" type="text" class="col-md-8" value="${comment.cid}" disabled="disabled"/>
+	                        					</div>
+	                        					
+												<div class="row">
+	                        						<label class="col-md-3">内容：</label>
+	                        						<textarea id="content${comment.content}" rows="5" class="col-md-8">${comment.content}</textarea>
+	                        					</div>
+	                        				</form>
+	                        			</div>
+	                        			<div class="modal-footer">
+											<a type="button" class="btn btn-default" data-dismiss="modal">关闭</a>
+											<a id="update_catalog${comment.cid}" type="button" class="btn btn-primary">更新</a>
+											<script type="text/javascript">
+											$("#update_catalog${comment.cid}").click(function() {
+												$.post(
+													"/Jsp_blog/comment/ajaxupdate.do",
+													{cid: $("#cid${comment.cid}").val(), 
+													 content: $("#content${comment.content}").val()},
+													function(){}
+												)
+												window.location.reload();
+												window.location.reload();
+											});
+											</script>
+										</div>
+	                        		</div>
+	                        	</div>
+	                        </div>
+                        	<form action="/Jsp_blog/comment/${comment.cid}/delete.do" method="post">
                         		<input class="btn btn_grey" id="btn_delete" type="submit" value="删除"/>
                         	</form>
                         </td>

@@ -276,7 +276,18 @@
                         </td>
                         <td class="text-center my_ellipsis">${article.key_word}</td>
                         <td class="text-center my_ellipsis">
-                          	 	<a href="/profile/">${article.auther}</a>
+                          	 	<a id="${article.aid}">${article.auther}</a>
+                          	 	<script type="text/javascript">
+                          	 		$(function(){
+                          	 			$.post(
+                          	 				"/Jsp_blog/auth/ajax_getuid_by_email.do",
+                          	 				{email: "${article.auther}"},
+                          	 				function(data){
+                          	 					$("#${article.aid}").attr("href", "/Jsp_blog/auth/profile/"+data+".do");
+                          	 				}
+                          	 			)                          	 			
+                          	 		})
+                          	 	</script>
                        	</td>
                         <td class="text-center created_time">${article.created_time}</td>
 					</tr>

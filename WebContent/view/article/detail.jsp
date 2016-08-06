@@ -33,8 +33,12 @@
         	font-size: 13px !important;
         	text-align: right;
         }
-        .extra_h span {
+        .extra_h a {
         	margin-right: 10px;
+        	color: #e8554e;
+        }
+        .extra_h a:hover {
+        	text-decoration: none;
         }
         .panel-body {
         	padding: 0;
@@ -59,8 +63,11 @@
 			padding: 0; 	
 			margin-bottom: 10px;	
        	}
-       	.user_information span {
+       	.user_information a {
        		color: #e8554e;
+       	}
+       	.user_information a:hover {
+       		text-decoration: none;
        	}
        	.user_content p {
        		padding-top: 10px;
@@ -131,7 +138,20 @@
                 <span class="label label-info" style="font-size: 13px">${article.son_catalog}</span>
                 <br/>
                 <div class="extra_h">
-               	 	<span id="auther">${article.auther}</span>
+               	 	
+               	 	<a id="${article.aid}">${article.auther}</a>
+                       	 	<script type="text/javascript">
+                       	 		$(function(){
+                       	 			$.post(
+                       	 				"/Jsp_blog/auth/ajax_getuid_by_email.do",
+                       	 				{email: "${article.auther}"},
+                       	 				function(data){
+                       	 					$("#${article.aid}").attr("href", "/Jsp_blog/auth/profile/"+data+".do");
+                       	 					
+                       	 				}
+                       	 			)                          	 			
+                       	 		})
+                       	 	</script>
             		<span class="created_time">${article.created_time}</span>
             	</div>
             </div>
@@ -145,17 +165,18 @@
             		<li class="list-group-item2">
             			<div class="text-center col-md-1 user_information">
             				<img class="img-circle" src="/Jsp_blog/img/image/person.png"/><br/>
-          					<span class="my_ellipsis" id="username${comment.cid }${comment.uid }">${comment.uid }</span>
+          					<a class="my_ellipsis" id="username${comment.cid }${comment.uid }">${comment.uid }</a>
           					<script type="text/javascript">
           						$(function(){
           							$.post(
           								"/Jsp_blog/auth/ajax_getname_by_uid.do",
           								{uid: "${comment.uid}"},
           								function(data){
-          									$("#username${comment.cid }${comment.uid }").html(data)
+          									$("#username${comment.cid }${comment.uid }").html(data);
+          									$("#username${comment.cid }${comment.uid }").attr("href", "/Jsp_blog/auth/profile/${comment.uid}.do");
           								}
           							)
-          						})
+          						});
           					</script>
             			</div>
             			<div class="user_content col-md-11">
