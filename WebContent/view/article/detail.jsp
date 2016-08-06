@@ -126,7 +126,10 @@
 	 <div class="content">
         <div class="panel panel-default articles_index_panel">
             <div class="panel-heading">
-                <b>${article.title }</b><br/>
+                <b style="word-wrap : break-word; word-break:break-all;">${article.title }</b>
+                <span class="label label-primary" style="font-size: 13px">${article.father_catalog }</span>
+                <span class="label label-info" style="font-size: 13px">${article.son_catalog}</span>
+                <br/>
                 <div class="extra_h">
                	 	<span id="auther">${article.auther}</span>
             		<span class="created_time">${article.created_time}</span>
@@ -142,7 +145,18 @@
             		<li class="list-group-item2">
             			<div class="text-center col-md-1 user_information">
             				<img class="img-circle" src="/Jsp_blog/img/image/person.png"/><br/>
-          					<span class="my_ellipsis" id="username">${comment.uid }</span>
+          					<span class="my_ellipsis" id="username${comment.cid }${comment.uid }">${comment.uid }</span>
+          					<script type="text/javascript">
+          						$(function(){
+          							$.post(
+          								"/Jsp_blog/auth/ajax_getname_by_uid.do",
+          								{uid: "${comment.uid}"},
+          								function(data){
+          									$("#username${comment.cid }${comment.uid }").html(data)
+          								}
+          							)
+          						})
+          					</script>
             			</div>
             			<div class="user_content col-md-11">
             				<p>

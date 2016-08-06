@@ -11,7 +11,7 @@
 		<li><a href="/Jsp_blog/aboutMe.do" id="about_me">关于</a></li>
 	</ul>
 	
-	<ul class="nav navbar-nav navbar-right">
+	<ul class="nav navbar-nav navbar-right" style="text-align: right;">
 	<% if(session.getAttribute("loginUid") == null) {%>
 		<li>
 			<a id="btn_login" href="#login_modal" data-toggle="modal">登录</a>
@@ -20,7 +20,7 @@
 		<li><a href="/Jsp_blog/auth/register.do">注册</a></li>
 	<% } else { %>
 		<li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <a href="#" style="width: 300px;" class="dropdown-toggle my_ellipsis" data-toggle="dropdown" role="button" aria-expanded="false">
                     <%=session.getAttribute("loginEmail") %><span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu header_dropdown_menu" role="menu">

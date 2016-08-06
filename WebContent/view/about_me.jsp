@@ -32,7 +32,13 @@
 	<%@include file="/view/layout/header.jsp" %>
 	
 	<div class="content">
-		<h1>Do you want to know me?</h1>
+		<div class="container">
+			<div class="panel panel-default" style="width: 600px; text-align: center;margin: 0 auto;margin-top: 10%;">
+				<div class="panel-body">
+					本项目长期处于push中，了解更多请移步：<a class="text-info" href="https://github.com/su526664687/Jsp_blog"><b>github</b></a>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<%@include file="/view/layout/footer.jsp" %>

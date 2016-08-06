@@ -304,7 +304,7 @@
 		<%} %>
 		</div-->
 		<div style="clear: both;"></div>
-	
+	</div>
 	<%@include file="/view/layout/footer.jsp" %>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <div id="dashboard_nav">
 	<div class="text-center" id="dashboard_nav_avatar">
 		<img class="img-circle" src="/Jsp_blog/img/image/person.png" alt="加载中...">
-		<p><%=session.getAttribute("loginEmail") %></p>
+		<p style="width: 80%; text-align: center;margin-left: 10%;" class="my_ellipsis"><%=session.getAttribute("loginEmail") %></p>
 		<hr>
 	</div>
 	<ul class="nav nav-stacked" id="dashboard_subnav">

@@ -28,6 +28,13 @@ public class UserController {
 
 	private UserDao userDao;
 
+	@RequestMapping(value="/ajax_getname_by_uid", method=RequestMethod.POST)
+	@ResponseBody
+	public String ajaxGetnameByUid(int uid) {
+		UserVO userVO = userDao.select(uid);
+		return userVO.getEmail();
+	}
+	
 	@RequestMapping(value="/login.do", method=RequestMethod.GET)
 	public String login() {
 		return "auth/login";

@@ -115,8 +115,7 @@ public class ArticleController {
 		} else {
 			ArticleVO articleVO = new ArticleVO(title,content,key_word,
 					father_catalog, son_catalog, (String)session.getAttribute("loginEmail"));
-			for(int i=0;i<10;i++)
-				articleDao.insert(articleVO);
+			articleDao.insert(articleVO);
 			return "redirect:list/1.do";
 		}
 	}
@@ -131,10 +130,24 @@ public class ArticleController {
 	}
 	
 	@RequestMapping(value="/manage.do", method=RequestMethod.GET)
-	public String manage(Model model) {
+	public String manage(Model model, HttpSession session) {
 		List<ArticleVO> articles = articleDao.find();
-		model.addAttribute("articles", articles);
-		return "dashboard/article_manage";
+		if(session.getAttribute("loginLevel").toString().equals("1")) {
+			model.addAttribute("articles", articles);
+			return "dashboard/article_manage";
+		} else if(session.getAttribute("loginLevel").toString().equals("2")) {
+			for(int i=0;i<articles.size();i++) {
+				if(!(articles.get(i).getAuther().equals(session.getAttribute("loginEmail")))) {
+					articles.remove(i);
+					i--;
+				}
+			}
+			model.addAttribute("articles", articles);
+			return "dashboard/article_manage";
+		} else {
+			return "other/404";
+		}
+			
 	}
 	
 	@RequestMapping(value="/{aid}/edit.do", method=RequestMethod.GET)
