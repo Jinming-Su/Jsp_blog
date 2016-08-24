@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.taglibs.standard.tag.el.sql.UpdateTag;
 import org.aspectj.weaver.ast.Var;
 import org.springframework.stereotype.Controller;
@@ -169,18 +171,26 @@ public class CatalogController {
 	}
 	
 	@RequestMapping("/manage.do")
-	public String manage(Model model) {
-		
-		List<CatalogVO> catalogs = catalogDao.find();
-		model.addAttribute("catalogs", catalogs);
-		return "dashboard/catalog_manage";
+	public String manage(Model model, HttpSession session) {
+		if(session.getAttribute("loginUid") != null &&
+		   session.getAttribute("loginLevel").toString().equals("1")) {
+			List<CatalogVO> catalogs = catalogDao.find();
+			model.addAttribute("catalogs", catalogs);
+			return "dashboard/catalog_manage";
+		} else {
+			return "other/404";
+		}
 	}
 	
 	@RequestMapping(value="/{clid}/delete.do", method=RequestMethod.POST)
-	public String delete(@PathVariable int clid) {
-		
-		catalogDao.delete(clid);
-		return "redirect:../manage.do";
+	public String delete(@PathVariable int clid, HttpSession session) {
+		if(session.getAttribute("loginUid") != null &&
+				   session.getAttribute("loginLevel").toString().equals("1")) {
+			catalogDao.delete(clid);
+			return "redirect:../manage.do";
+		} else {
+			return "other/404";
+		}
 	}
 	
 	@RequestMapping(value="/ajax_get_num1.do", method=RequestMethod.POST)

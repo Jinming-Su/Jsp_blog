@@ -51,8 +51,8 @@ h2 em{color:#e4ebf8;}
 	<h1><img src="/Jsp_blog/img/image/404.jpg" alt="404"></h1>
     <h2><em><span class="STYLE1">404 Error&nbsp;&nbsp; </span></em></h2>
 <p class="link">
-        <a href="/Jsp_blog/">?·返回首页</a>
-        <a href="/Jsp_blog/">?·返回上一页</a>
+        <a href="/Jsp_blog/">· 返回首页</a>
+        <a href="/Jsp_blog/">· 返回上一页</a>
     </p>
     <dl class="texts">
         <dt>Sjming正在联系火星总部查找您所需要的页面，请返回等待信息...</dt>

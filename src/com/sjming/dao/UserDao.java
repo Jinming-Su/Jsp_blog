@@ -66,9 +66,14 @@ public class UserDao implements UserDaoImp {
 	
 	public UserVO select(int uid) {
 		String sql = "select * from user where uid = ?";
-		return (UserVO) jdbcTemplate.query(sql, new Object [] {
+		List<UserVO> tmp = jdbcTemplate.query(sql, new Object [] {
 				uid
-		}, new userMapper()).get(0);
+		}, new userMapper());
+		if(tmp.size() != 0) {
+			return tmp.get(0);
+		} else {
+			return null;
+		}
 	}
 	public List<UserVO> selectByEmail(String email) {
 		String sql = "select * from user where email = ?";

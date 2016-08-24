@@ -93,6 +93,11 @@
         .md-preview {
         	padding: 20px !important;
         }
+		.my_ellipsis {
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+		}
     </style>
 	<script type="text/javascript">
 		$(function() {
@@ -138,7 +143,6 @@
                 <span class="label label-info" style="font-size: 13px">${article.son_catalog}</span>
                 <br/>
                 <div class="extra_h">
-               	 	
                	 	<a id="${article.aid}">${article.auther}</a>
                        	 	<script type="text/javascript">
                        	 		$(function(){
@@ -165,7 +169,7 @@
             		<li class="list-group-item2">
             			<div class="text-center col-md-1 user_information">
             				<img class="img-circle" src="/Jsp_blog/img/image/person.png"/><br/>
-          					<a class="my_ellipsis" id="username${comment.cid }${comment.uid }">${comment.uid }</a>
+          					<a style="display: inline-block;width: 100%;" class="my_ellipsis" id="username${comment.cid }${comment.uid }">${comment.uid }</a>
           					<script type="text/javascript">
           						$(function(){
           							$.post(

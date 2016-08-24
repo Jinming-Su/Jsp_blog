@@ -39,9 +39,14 @@ public class CommentDao implements CommentDaoImp {
 
 	public CommentVO select(int cid) {
 		String sql = "select * from comment where cid = ?";
-		return (CommentVO) jdbcTemplate.query(sql, new Object []{
+		List<CommentVO> tmp = jdbcTemplate.query(sql, new Object []{
 				cid
-		}, new CommentRowMapper()).get(0);
+		}, new CommentRowMapper());
+		if(tmp.size() != 0) {
+			return tmp.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	public List<CommentVO> find(int aid) {

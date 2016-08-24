@@ -90,7 +90,7 @@
 					<tr>
 						<td class="text-center">${user.uid}</td>
                         <td class="text-center my_ellipsis">
-                            <a href="/Jsp_blog/auth/${user.uid}.do">${user.email}</a>
+                            <a href="/Jsp_blog/auth/profile/${user.uid}.do">${user.email}</a>
                         </td>
                         <td class="text-center">
                           	 	<a href="/profile/">${user.score}</a>

@@ -26,47 +26,61 @@ public class CommentController {
 	
 	@RequestMapping(value="/article/{aid}/comment/create.do", method=RequestMethod.POST)
 	public String create(@PathVariable int aid, String content, HttpSession session) {
-
-		CommentVO commentVO = new CommentVO(content, aid, (int)session.getAttribute("loginUid"));
-		commentDao.insert(commentVO);
-		
-		UserVO userVO = userDao.select((int)session.getAttribute("loginUid"));
-		userVO.setScore(userVO.getScore()+1);
-		userDao.update(userVO);
-		
-		return "redirect:../../"+aid+".do";
-	}
-	
-	@RequestMapping(value="/comment/manage.do", method=RequestMethod.GET)
-	public String manage(Model model, HttpSession session) {
-		
-		List<CommentVO> comments = commentDao.find();
-		Collections.reverse(comments);
-		if(session.getAttribute("loginLevel").toString().equals("1")) {
-			model.addAttribute("comments", comments);
-			return "dashboard/comment_manage";
-		} else if(session.getAttribute("loginLevel") != null){
-			for(int i=0;i<comments.size();i++) {
-				if(!(comments.get(i).getUid() == (int)session.getAttribute("loginUid"))) {
-					comments.remove(i);
-					i--;
-				}
-			}
-			model.addAttribute("comments", comments);
-			return "dashboard/comment_manage";
+		if(session.getAttribute("loginUid") != null) {
+			CommentVO commentVO = new CommentVO(content, aid, (int)session.getAttribute("loginUid"));
+			commentDao.insert(commentVO);
+			
+			UserVO userVO = userDao.select((int)session.getAttribute("loginUid"));
+			userVO.setScore(userVO.getScore()+1);
+			userDao.update(userVO);
+			
+			return "redirect:../../"+aid+".do";
 		} else {
 			return "other/404";
 		}
 		
-		
+	}
+	
+	@RequestMapping(value="/comment/manage.do", method=RequestMethod.GET)
+	public String manage(Model model, HttpSession session) {
+		if(session.getAttribute("loginUid") != null) {
+			List<CommentVO> comments = commentDao.find();
+			Collections.reverse(comments);
+			if(session.getAttribute("loginLevel").toString().equals("1")) {
+				model.addAttribute("comments", comments);
+				return "dashboard/comment_manage";
+			} else if(session.getAttribute("loginLevel") != null){
+				for(int i=0;i<comments.size();i++) {
+					if(!(comments.get(i).getUid() == (int)session.getAttribute("loginUid"))) {
+						comments.remove(i);
+						i--;
+					}
+				}
+				model.addAttribute("comments", comments);
+				return "dashboard/comment_manage";
+			} else {
+				return "other/404";
+			}
+		} else {
+			return "other/404";
+		}
 		
 	}
 	
 	@RequestMapping(value="/comment/{cid}/delete.do")
-	public String delete(@PathVariable int cid) {
+	public String delete(@PathVariable int cid, HttpSession session) {
+		if(session.getAttribute("loginUid") != null) {
+			if(session.getAttribute("loginLevel").toString().equals("1") || 
+			   commentDao.select(cid).getUid() == (int)session.getAttribute("loginUid")) {
+				commentDao.delete(cid);
+				return "redirect:../manage.do";
+			} else {
+				return "other/404";
+			}
+		} else {
+			return "other/404";
+		}
 		
-		commentDao.delete(cid);
-		return "redirect:../manage.do";
 	}
 	
 	

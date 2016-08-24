@@ -12,6 +12,7 @@ import javax.jws.WebParam.Mode;
 import javax.naming.directory.SearchControls;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -101,6 +102,9 @@ public class ArticleController {
 	
 	@RequestMapping(value="/search.do", method=RequestMethod.POST)
 	public String search(String key) throws UnsupportedEncodingException {
+		if(key == "") {
+			key = " ";
+		}
 		return "redirect:search/"+URLEncoder.encode(URLEncoder.encode(key, "utf-8"))+"/1.do";
 	}
 	
@@ -143,27 +147,41 @@ public class ArticleController {
 	@RequestMapping(value="/create.do", method=RequestMethod.POST)
 	public String create2(String title, String content, String key_word, 
 			String father_catalog, String son_catalog, Model model, HttpSession session) {
-		Vector<String> error = new Vector<String>();
-		if(title.length() > 256 || title.length() == 0) {
-			error.add("标题不超过256个字符且不为空");
-		}
-		if(key_word.length() > 256) {
-			error.add("关键字不超过256个字符");
-		}
-		if(error.size() > 0 ){
-			model.addAttribute("errors", error);
-			return "article/create";
+		if(session.getAttribute("loginUid") != null) {
+			//根据id获取用户
+			UserVO user = userDao.select((int) session.getAttribute("loginUid"));
+			if(user.getLevel() == 2||user.getLevel() == 1) {
+				Vector<String> error = new Vector<String>();
+				if(title.length() > 256 || title.length() == 0) {
+					error.add("标题不超过256个字符且不为空");
+				}
+				if(key_word.length() > 256) {
+					error.add("关键字不超过256个字符");
+				}
+				if(error.size() > 0 ){
+					model.addAttribute("errors", error);
+					return "article/create";
+				} else {
+					
+					ArticleVO articleVO = new ArticleVO(title,content,key_word,
+							father_catalog, son_catalog, (String)session.getAttribute("loginEmail"));
+					articleDao.insert(articleVO);
+					return "redirect:list/1.do";
+				}
+			} else {
+				return "other/404";
+			}
 		} else {
-			ArticleVO articleVO = new ArticleVO(title,content,key_word,
-					father_catalog, son_catalog, (String)session.getAttribute("loginEmail"));
-			articleDao.insert(articleVO);
-			return "redirect:list/1.do";
+			return "other/404";
 		}
 	}
 	
 	@RequestMapping(value="/{index}.do", method=RequestMethod.GET)
 	public String detail(@PathVariable int index, Model model) {
 		ArticleVO articleVO = articleDao.select(index);
+		if(articleVO == null) {
+			return "other/404";
+		}
 		model.addAttribute("article", articleVO);
 		List<CommentVO> comments = commentDao.find(index);
 		model.addAttribute("comments", comments);
@@ -172,67 +190,98 @@ public class ArticleController {
 	
 	@RequestMapping(value="/manage.do", method=RequestMethod.GET)
 	public String manage(Model model, HttpSession session) {
-		List<ArticleVO> articles = articleDao.find();
-		Collections.reverse(articles);
-		if(session.getAttribute("loginLevel").toString().equals("1")) {
-			model.addAttribute("articles", articles);
-			return "dashboard/article_manage";
-		} else if(session.getAttribute("loginLevel").toString().equals("2")) {
-			for(int i=0;i<articles.size();i++) {
-				if(!(articles.get(i).getAuther().equals(session.getAttribute("loginEmail")))) {
-					articles.remove(i);
-					i--;
+		if(session.getAttribute("loginUid") != null) {
+			List<ArticleVO> articles = articleDao.find();
+			Collections.reverse(articles);
+			if(session.getAttribute("loginLevel").toString().equals("1")) {
+				model.addAttribute("articles", articles);
+				return "dashboard/article_manage";
+			} else if(session.getAttribute("loginLevel").toString().equals("2")) {
+				for(int i=0;i<articles.size();i++) {
+					if(!(articles.get(i).getAuther().equals(session.getAttribute("loginEmail")))) {
+						articles.remove(i);
+						i--;
+					}
 				}
+				model.addAttribute("articles", articles);
+				return "dashboard/article_manage";
+			} else {
+				return "other/404";
 			}
-			model.addAttribute("articles", articles);
-			return "dashboard/article_manage";
 		} else {
 			return "other/404";
 		}
-			
 	}
 	
 	@RequestMapping(value="/{aid}/edit.do", method=RequestMethod.GET)
-	public String edit(@PathVariable int aid, Model model) {
-		ArticleVO articleVO = articleDao.select(aid);
-		model.addAttribute("article", articleVO);
-		/*获取catalog*/
-		List<CatalogVO> catalogs = catalogDao.find();
-		for(int i=0;i<catalogs.size();i++) {
-			if(catalogs.get(i).getName() == null) {
-				catalogs.remove(i);
+	public String edit(@PathVariable int aid, Model model, HttpSession session) {
+		if(session.getAttribute("loginUid") != null) {
+			if(session.getAttribute("loginLevel").toString().equals("1") ||
+			   (session.getAttribute("loginLevel").toString().equals("2") &&
+				articleDao.select(aid).getAuther().equals(session.getAttribute("loginEmail")))) {
+					ArticleVO articleVO = articleDao.select(aid);
+					model.addAttribute("article", articleVO);
+					/*获取catalog*/
+					List<CatalogVO> catalogs = catalogDao.find();
+					for(int i=0;i<catalogs.size();i++) {
+						if(catalogs.get(i).getName() == null) {
+							catalogs.remove(i);
+						}
+					}
+					model.addAttribute("catalogs", catalogs);
+					return "article/edit";
+			} else {
+				return "other/404";
 			}
+		} else {
+			return "other/404";
 		}
-		model.addAttribute("catalogs", catalogs);
-		return "article/edit";
 	}
 	@RequestMapping(value="/{aid}/edit.do", method=RequestMethod.POST)
 	public String edit2(@PathVariable int aid, String title, String content, String key_word, 
 			String father_catalog, String son_catalog, Model model, HttpSession session) {
-		Vector<String> error = new Vector<String>();
-		if(title.length() > 256 || title.length() == 0) {
-			error.add("标题不超过256个字符且不为空");
-		}
-		if(key_word.length() > 256) {
-			error.add("关键字不超过256个字符");
-		}
-		if(error.size() > 0 ){
-			model.addAttribute("errors", error);
-			return "article/create";
+		if(session.getAttribute("loginUid") != null) {
+			if(session.getAttribute("loginLevel").toString().equals("1") ||
+			   (session.getAttribute("loginLevel").toString().equals("2") &&
+				articleDao.select(aid).getAuther().equals(session.getAttribute("loginEmail")))) {
+					Vector<String> error = new Vector<String>();
+					if(title.length() > 256 || title.length() == 0) {
+						error.add("标题不超过256个字符且不为空");
+					}
+					if(key_word.length() > 256) {
+						error.add("关键字不超过256个字符");
+					}
+					if(error.size() > 0 ){
+						model.addAttribute("errors", error);
+						return "article/create";
+					} else {
+						ArticleVO articleVO = new ArticleVO(aid, title,content,key_word, father_catalog, son_catalog);
+						articleDao.update(articleVO);
+						return "redirect:../list/1.do";
+					}
+			}else {
+				return "other/404";
+			}
 		} else {
-			ArticleVO articleVO = new ArticleVO(aid, title,content,key_word, father_catalog, son_catalog);
-			articleDao.update(articleVO);
-			return "redirect:../list/1.do";
+			return "other/404";
 		}
 	}
 	
 	@RequestMapping(value="/{aid}/delete.do", method=RequestMethod.POST)
-	public String delete(@PathVariable int aid) {
-		articleDao.delete(aid);
-		return "redirect:../manage.do";
+	public String delete(@PathVariable int aid, HttpSession session) {
+		if(session.getAttribute("loginUid") != null) {
+			if(session.getAttribute("loginLevel").toString().equals("1") ||
+			   (session.getAttribute("loginLevel").toString().equals("2") &&
+				articleDao.select(aid).getAuther().equals(session.getAttribute("loginEmail")))) {
+					articleDao.delete(aid);
+					return "redirect:../manage.do";
+			} else {
+				return "other/404";
+			}
+		} else {
+			return "other/404";
+		}
 	}
-	
-	
 	
 	public ArticleDao getArticleDao() {
 		return articleDao;

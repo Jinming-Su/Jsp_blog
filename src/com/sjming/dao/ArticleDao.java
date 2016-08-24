@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.sjming.model.ArticleVO;
+import com.sun.xml.internal.ws.policy.EffectiveAlternativeSelector;
 
 public class ArticleDao implements ArticleDaoImp {
 	
@@ -45,9 +46,14 @@ public class ArticleDao implements ArticleDaoImp {
 	public ArticleVO select(int aid) {
 		
 		String sql = "select * from article where aid = ?";
-		return (ArticleVO)(jdbcTemplate.query(sql, new Object[]{
+		List<ArticleVO> tmp = jdbcTemplate.query(sql, new Object[]{
 				aid
-		}, new ArticleMapper()).get(0));
+		}, new ArticleMapper());
+		if(tmp.size() != 0) {
+			return tmp.get(0);
+		} else {
+			return null;
+		}
 	}
 	
 	/*

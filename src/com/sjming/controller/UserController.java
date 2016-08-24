@@ -188,22 +188,37 @@ public class UserController {
 	
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
-		session.removeAttribute("loginUid");
-		session.removeAttribute("loginEmail");
-		return "../index";
+		if(session.getAttribute("loginUid") != null) {
+			session.removeAttribute("loginUid");
+			session.removeAttribute("loginEmail");
+			return "../index";
+		} else {
+			return "other/404";
+		}
+		
 	}
 	
 	@RequestMapping(value="/user_manage.do", method=RequestMethod.GET)
-	public String userManage(Model model) {
-		List<UserVO> users = userDao.find();
-		model.addAttribute("users", users);
-		return "dashboard/user_manage";
+	public String userManage(Model model, HttpSession session) {
+		if(session.getAttribute("loginUid") != null && 
+		   session.getAttribute("loginLevel").toString().equals("1")) {
+			List<UserVO> users = userDao.find();
+			model.addAttribute("users", users);
+			return "dashboard/user_manage";
+		} else {
+			return "other/404";
+		}
 	}
 	
 	@RequestMapping(value="/{uid}/delete.do", method=RequestMethod.POST)
-	public String delete(@PathVariable int uid){
-		userDao.delete(uid);
-		return "redirect:../user_manage.do";
+	public String delete(@PathVariable int uid, HttpSession session){
+		if(session.getAttribute("loginUid") != null && 
+				   session.getAttribute("loginLevel").toString().equals("1")) {
+			userDao.delete(uid);
+			return "redirect:../user_manage.do";
+		} else {
+			return "other/404";
+		}
 	}
 	
 	@RequestMapping(value="/ajaxupdate.do")

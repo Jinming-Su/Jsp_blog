@@ -30,8 +30,8 @@
 	<div class="content">
 		<div class="text-center" id="loading">
 			<i class="fa fa-spinner fa-pulse"></i><br><br>
-			${info1}, <span id="jumpTo">5</span>秒后, 自动跳转到${info2}
-			<script type="text/javascript">countDown(5, "${url}");</script>
+			${info1}, <span id="jumpTo">3</span>秒后, 自动跳转到${info2}
+			<script type="text/javascript">countDown(3, "${url}");</script>
 		</div>
 	</div>
 	
