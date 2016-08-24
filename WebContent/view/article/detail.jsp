@@ -189,9 +189,38 @@
             				</p>
             				<form action="" method="post">
             					<span class="text-muted created_time">${comment.created_time}</span>
-          						<a class="text-muted"><i class="fa fa-trash-o"></i>删除</a>
-          						<a class="text-muted"><i class="fa fa-reply"></i>回复</a>
-          						<a class="text-muted"><i class="fa fa-thumbs-o-up"></i>赞</a><br/>
+            					<% if(session.getAttribute("loginUid") != null &&
+            						session.getAttribute("loginLevel").toString().equals("1")) {%>
+          						<a class="text-muted" id="delete${comment.cid}"><i class="fa fa-trash-o"></i>删除</a>
+          						<script type="text/javascript">
+          							$(function(){
+          								$("#delete${comment.cid}").click(function(){
+          									$.post(
+    	          									"/Jsp_blog/comment/${comment.cid}/delete.do",
+    	          									{},
+    	          									function(){
+    	          										window.location.reload();
+    	          									}
+    	          								)
+          								})
+          							})
+          						</script>
+          						<%} %>
+          						<a class="text-muted" id="like${comment_cid }"><i class="fa fa-thumbs-o-up"></i>赞(${comment.like_num})</a><br/>
+          						<script type="text/javascript">
+          							$(function(){
+          								$("#like${comment_cid }").click(function(){
+          									$.post(
+          										"/Jsp_blog/comment/ajax_like.do",
+          										{cid: "${comment.cid}"},
+          										function(){
+          											
+          										}
+          									)
+          									window.location.reload();
+          								})
+          							})
+          						</script>
           					</form>
             			</div>
             			<div style="clear: both;"></div>

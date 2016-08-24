@@ -92,6 +92,16 @@ public class CommentController {
 		commentDao.update(comment);
 	}
 	
+	@RequestMapping(value="/comment/ajax_like.do", method=RequestMethod.POST)
+	public void ajaxLike(int cid, HttpSession session) {
+		if(session.getAttribute("loginUid") != null) {
+			CommentVO comment = commentDao.select(cid);
+			comment.setLike_num(comment.getLike_num()+1);
+			
+			commentDao.update(comment);
+		}
+	}
+	
 	public CommentDao getCommentDao() {
 		return commentDao;
 	}

@@ -31,9 +31,9 @@ public class CommentDao implements CommentDaoImp {
 	}
 
 	public void update(CommentVO commentVO) {
-		String sql = "update comment set content = ? where cid = ?";
+		String sql = "update comment set content = ?, like_num = ? where cid = ?";
 		jdbcTemplate.update(sql, new Object[]{
-				commentVO.getContent(), commentVO.getCid()
+				commentVO.getContent(), commentVO.getLike_num(),commentVO.getCid()
 		});
 	}
 
@@ -64,6 +64,7 @@ public class CommentDao implements CommentDaoImp {
 			commentVO.setContent(rs.getString("content"));
 			commentVO.setAid(rs.getInt("aid"));
 			commentVO.setUid(rs.getInt("uid"));
+			commentVO.setLike_num(rs.getInt("like_num"));
 			commentVO.setCreated_time(rs.getTimestamp("created_time").getTime());
 			return commentVO;
 		}

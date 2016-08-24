@@ -6,6 +6,8 @@ public class CommentVO {
 	private String content;
 	private int aid;
 	private int uid;
+	private int like_num;
+	
 	private long created_time;
 	public CommentVO(int cid, String content, int aid, int uid, long created_time) {
 		super();
@@ -47,6 +49,12 @@ public class CommentVO {
 	}
 	public void setUid(int uid) {
 		this.uid = uid;
+	}
+	public int getLike_num() {
+		return like_num;
+	}
+	public void setLike_num(int like_num) {
+		this.like_num = like_num;
 	}
 	public long getCreated_time() {
 		return created_time;
