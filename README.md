@@ -1,12 +1,12 @@
 # Jsp_blog
 A universal blog
 
-## version 1.1 
+## version 2.0
 
 > friend system
-   - [ ] add
-   - [ ] show
-   - [ ] statistics
+   - [x] add
+   - [x] show
+   - [x] statistics
 
 ## version 1.0 : completed
 ### function  
@@ -100,3 +100,9 @@ catalog:
 |child4|varchar(256)|
 |child5|varchar(256)|
 
+friend:
+|name|type|
+|----|----|
+|fid|int|
+|source|int|
+|target|int|
