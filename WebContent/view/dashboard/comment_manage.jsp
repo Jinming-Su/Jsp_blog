@@ -87,13 +87,13 @@
 					<tr>
 						<td class="text-center">${comment.cid}</td>
                         <td class="text-center my_ellipsis">
-                            <a href="">${comment.content}</a>
+                            <span>${comment.content}</span>
                         </td>
                         <td class="text-center my_ellipsis">
-                          	 	<a href="">${comment.aid}</a>
+                          	 	<a href="/Jsp_blog/article/${comment.aid}.do">${comment.aid}</a>
                        	</td>
                        	<td class="text-center my_ellipsis">
-                          	 	<a href="">${comment.uid}</a>
+                          	 	<a href="/Jsp_blog/auth/profile/${comment.uid}.do">${comment.uid}</a>
                        	</td>
                         <td class="text-center created_time">${comment.created_time}</td>
                         <td class="text-center">

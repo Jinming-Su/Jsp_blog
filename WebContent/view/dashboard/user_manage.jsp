@@ -93,12 +93,30 @@
                             <a href="/Jsp_blog/auth/profile/${user.uid}.do">${user.email}</a>
                         </td>
                         <td class="text-center">
-                          	 	<a href="/profile/">${user.score}</a>
+                          	 	<span>${user.score}</span>
                        	</td>
                        	<td class="text-center">${user.level}</td>
                         <td class="text-center created_time">${user.created_time}</td>
-                        <td class="text-center">test1</td>
-                        <td class="text-center">test1</td>
+                        <td class="text-center" id="article_num${user.uid}"></td>
+                        <td class="text-center" id="comment_num${user.uid}"></td>
+                        <script>
+                        	$(function(){
+                        		$.post(
+                        			"/Jsp_blog/auth/user_manage/ajax_article_num.do",
+                        			{uid: "${user.uid}"},
+                        			function(data) {
+                        				$("#article_num${user.uid}").html(data);
+                        			}
+                        		)
+                        		$.post(
+                        			"/Jsp_blog/auth/user_manage/ajax_comment_num.do",
+                        			{uid: "${user.uid}"},
+                        			function(data) {
+                        				$("#comment_num${user.uid}").html(data);
+                        			}
+                        		)
+                        	})
+                        </script>
                         <td class="text-center">
                         	<a href="#mymodal${user.uid}" data-toggle="modal" class="btn btn_grey" id="btn_edit">编辑</a>
                         	<div class="modal fade" id="mymodal${user.uid}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">

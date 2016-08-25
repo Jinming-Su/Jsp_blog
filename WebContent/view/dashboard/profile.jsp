@@ -158,7 +158,22 @@
 						<c:if test="${sessionScope.loginUid != user.uid}">
 							<b class="pull-left">关注他的</b>
 						</c:if>
-							<span class="pull-right text-muted">${sourcesNum}</span>
+							<a href="#my_modal2" class="pull-right" data-toggle="modal">${sourcesNum}</a>
+							<div class="modal fade" id="my_modal2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	                        	<div class="modal-dialog">
+	                        		<div class="modal-content">
+	                        			<div class="modal-header">
+	                        				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	                        				<h6 class="modal-title">被关注的</h6>
+	                        			</div>
+	                        			<div class="modal-body" style="text-align: left;">
+	                        			<c:forEach items="${sources}" var="source">
+	                        				<a style="color: #e8554e" href="/Jsp_blog/auth/profile/${source.uid}.do">${source.email}</a>&nbsp;&nbsp;&nbsp;	
+	                        			</c:forEach>
+	                        			</div>
+	                        		</div>
+	                        	</div>
+	                        </div>
 							<div style="clear: both;"></div>
 						</li>
 					</ul>

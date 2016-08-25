@@ -167,7 +167,7 @@ public class UserController {
 				if(friends.get(i).getTarget() == uid) {
 					for(int j=0;j<users.size();j++) {
 						if(users.get(j).getUid() == friends.get(i).getSource()) {
-							targets.add(users.get(j));
+							sources.add(users.get(j));
 							break;
 						}
 					}
@@ -237,11 +237,38 @@ public class UserController {
 		if(session.getAttribute("loginUid") != null && 
 		   session.getAttribute("loginLevel").toString().equals("1")) {
 			List<UserVO> users = userDao.find();
+			
 			model.addAttribute("users", users);
 			return "dashboard/user_manage";
 		} else {
 			return "other/404";
 		}
+	}
+	
+	@RequestMapping(value="/user_manage/ajax_article_num.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int ajaxArticleNum(int uid) {
+		List<ArticleVO> articles = articleDao.find();
+		int num = 0;
+		for(int i=0;i<articles.size();i++) {
+			if(articles.get(i).getAuther().equals(userDao.select(uid).getEmail())) {
+				num++;
+			}
+		}
+		return num;
+	}
+	
+	@RequestMapping(value="/user_manage/ajax_comment_num.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int ajaxCommentNum(int uid) {
+		List<CommentVO> comments = commentDao.find();
+		int num = 0;
+		for(int i=0;i<comments.size();i++) {
+			if(comments.get(i).getUid() == uid) {
+				num++;
+			}
+		}
+		return num;
 	}
 	
 	@RequestMapping(value="/{uid}/delete.do", method=RequestMethod.POST)
