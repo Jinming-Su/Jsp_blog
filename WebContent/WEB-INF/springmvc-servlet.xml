@@ -52,6 +52,9 @@
 	<bean id="catalogDao" class="com.sjming.dao.CatalogDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
+	<bean id="friendDao" class="com.sjming.dao.FriendDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 	<!-- 给控制器注入dao类-->
 	<bean id="articleController" class="com.sjming.controller.ArticleController">
 		<property name="articleDao" ref="articleDao"></property>
@@ -63,6 +66,7 @@
 		<property name="userDao" ref="userDao"></property>
 		<property name="articleDao" ref="articleDao"></property>
 		<property name="commentDao" ref="commentDao"></property>
+		<property name="friendDao" ref="friendDao"></property>
 	</bean>
     <bean id="commentController" class="com.sjming.controller.CommentController">
 		<property name="commentDao" ref="commentDao"></property>
@@ -71,6 +75,9 @@
 	<bean id="catalogController" class="com.sjming.controller.CatalogController">
 		<property name="catalogDao" ref="catalogDao"></property>
 		<property name="articleDao" ref="articleDao"></property>
+	</bean>
+	<bean id="friendController" class="com.sjming.controller.FriendController">
+		<property name="friendDao" ref="friendDao"></property>
 	</bean>
 	
 	<!-- 从请求和响应读取／编写字符串 -->

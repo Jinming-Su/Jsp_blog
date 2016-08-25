@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sjming.dao.ArticleDao;
 import com.sjming.dao.CommentDao;
+import com.sjming.dao.FriendDao;
 import com.sjming.dao.UserDao;
 import com.sjming.model.ArticleVO;
 import com.sjming.model.CommentVO;
+import com.sjming.model.FriendVO;
 import com.sjming.model.UserVO;
 import com.sun.java.swing.plaf.motif.resources.motif;
 import com.sun.org.apache.xml.internal.serializer.ElemDesc;
@@ -38,6 +40,7 @@ public class UserController {
 	private UserDao userDao;
 	private ArticleDao articleDao;
 	private CommentDao commentDao;
+	private FriendDao friendDao;
 
 	@RequestMapping(value="/ajax_getname_by_uid", method=RequestMethod.POST)
 	@ResponseBody
@@ -145,7 +148,38 @@ public class UserController {
 				}
 			}
 			
+			List<FriendVO> friends = friendDao.find();
+			List<UserVO> users = userDao.find();
+			List<UserVO> targets = userDao.find();
+			targets.clear();
+			List<UserVO> sources = userDao.find();
+			sources.clear();
+			for(int i=0;i<friends.size();i++) {
+				if(friends.get(i).getSource() == uid) {
+					for(int j=0;j<users.size();j++) {
+						if(users.get(j).getUid() == friends.get(i).getTarget()) {
+							targets.add(users.get(j));
+							break;
+						}
+					}
+				}
+				
+				if(friends.get(i).getTarget() == uid) {
+					for(int j=0;j<users.size();j++) {
+						if(users.get(j).getUid() == friends.get(i).getSource()) {
+							targets.add(users.get(j));
+							break;
+						}
+					}
+				}
+			}
+			
+			
 			model.addAttribute("user", userVO);
+			model.addAttribute("targets", targets);
+			model.addAttribute("targetsNum", targets.size());
+			model.addAttribute("sources", sources);
+			model.addAttribute("sourcesNum", sources.size());
 			model.addAttribute("articles", articles);
 			model.addAttribute("comments", comments);
 			return "dashboard/profile";
@@ -251,4 +285,12 @@ public class UserController {
 	public void setCommentDao(CommentDao commentDao) {
 		this.commentDao = commentDao;
 	}
+	public FriendDao getFriendDao() {
+		return friendDao;
+	}
+
+	public void setFriendDao(FriendDao friendDao) {
+		this.friendDao = friendDao;
+	}
+
 }
