@@ -92,11 +92,33 @@
                             <a href="/Jsp_blog/article/${article.aid}.do">${article.title}</a>
                         </td>
                         <td class="text-center my_ellipsis">
-                          	 	<a href="/profile/">${article.auther}</a>
+                          	<a id="${article.aid}">${article.auther}</a>
+                          	<script type="text/javascript">
+                          		$(function(){
+                          			$.post(
+                          				"/Jsp_blog/auth/ajax_getuid_by_email.do",
+                          				{email: "${article.auther}"},
+                          				function(data) {
+                          					$("#${article.aid}").attr("href", "/Jsp_blog/auth/profile/"+data+".do");
+                          				}
+                          			)
+                          		})
+                          	</script>
                        	</td>
                         <td class="text-center created_time">${article.created_time}</td>
-                        <td class="text-center">test1</td>
-                        <td class="text-center">test1</td>
+                        <td class="text-center">${article.access_num }</td>
+                        <td class="text-center" id="comment_num${article.aid }"></td>
+                        	<script type="text/javascript">
+                        		$(function(){
+                        			$.post(
+                        				"/Jsp_blog/article/ajax_comment_num.do",
+                        				{aid: "${article.aid}"},
+                        				function(data) {
+                        					$("#comment_num${article.aid}").html(data);
+                        				}
+                        			)
+                        		})
+                        	</script>
                         <td class="text-center">
                         	<a href="/Jsp_blog/article/${article.aid}/edit.do" class="btn btn_grey" id="btn_edit">编辑</a>
                         	<form action="/Jsp_blog/article/${article.aid }/delete.do" method="post">

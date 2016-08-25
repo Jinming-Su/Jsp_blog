@@ -43,6 +43,13 @@ public class ArticleDao implements ArticleDaoImp {
 		});
 	}
 
+	public void updateAccessNum(ArticleVO articleVO) {
+		String sql = "update article set access_num = ? where aid = ?";
+		jdbcTemplate.update(sql, new Object[] {
+				articleVO.getAccess_num(), articleVO.getAid()
+		});
+	}
+	
 	public ArticleVO select(int aid) {
 		
 		String sql = "select * from article where aid = ?";
@@ -84,6 +91,7 @@ public class ArticleDao implements ArticleDaoImp {
 			articleVO.setSon_catalog(rs.getString("son_catalog"));
 			articleVO.setAuther(rs.getString("auther"));
 			articleVO.setCreated_time(rs.getTimestamp("created_time").getTime());
+			articleVO.setAccess_num(rs.getInt("access_num"));
 			return articleVO;
 		}
 		

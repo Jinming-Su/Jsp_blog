@@ -188,6 +188,13 @@ public class ArticleController {
 		return "article/detail";
 	}
 	
+	@RequestMapping(value="/ajax_comment_num.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int ajaxCommentNum(int aid) {
+		List<CommentVO> comments = commentDao.find(aid);
+		return comments.size();
+	}
+	
 	@RequestMapping(value="/manage.do", method=RequestMethod.GET)
 	public String manage(Model model, HttpSession session) {
 		if(session.getAttribute("loginUid") != null) {
@@ -281,6 +288,14 @@ public class ArticleController {
 		} else {
 			return "other/404";
 		}
+	}
+	
+	@RequestMapping(value="/ajax_view.do", method=RequestMethod.POST)
+	public void ajaxView(int aid) {
+		
+		ArticleVO article = articleDao.select(aid);
+		article.setAccess_num(article.getAccess_num() + 1);
+		articleDao.updateAccessNum(article);
 	}
 	
 	public ArticleDao getArticleDao() {

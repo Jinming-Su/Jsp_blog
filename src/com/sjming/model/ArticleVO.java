@@ -13,7 +13,7 @@ public class ArticleVO {
 	private String son_catalog;
 	private String auther;
 	private long created_time;
-	
+	private int access_num;
 	
 	public ArticleVO(int aid, String title, String content, String key_word, String father_catalog, String son_catalog,
 			String auther, long created_time) {
@@ -110,5 +110,11 @@ public class ArticleVO {
 	}
 	public void setCreated_time(long created_time) {
 		this.created_time = created_time;
+	}
+	public int getAccess_num() {
+		return access_num;
+	}
+	public void setAccess_num(int access_num) {
+		this.access_num = access_num;
 	}
 }

@@ -151,12 +151,23 @@
                        	 				{email: "${article.auther}"},
                        	 				function(data){
                        	 					$("#${article.aid}").attr("href", "/Jsp_blog/auth/profile/"+data+".do");
-                       	 					
                        	 				}
                        	 			)                          	 			
                        	 		})
                        	 	</script>
             		<span class="created_time">${article.created_time}</span>
+            		<span class="text-muted" id="view_num">浏览(${article.access_num+1})</span>
+            		<script type="text/javascript">
+            			$(function(){
+            				$.post(
+            					"/Jsp_blog/article/ajax_view.do",
+            					{aid: "${article.aid}"},
+            					function(){
+            						window.location.reload();
+            					}
+            				)
+            			})
+            		</script>
             	</div>
             </div>
             <div class="panel-body">
@@ -206,16 +217,13 @@
           							})
           						</script>
           						<%} %>
-          						<a class="text-muted" id="like${comment_cid }"><i class="fa fa-thumbs-o-up"></i>赞(${comment.like_num})</a><br/>
+          						<a class="text-muted" id="like${comment.cid }"><i class="fa fa-thumbs-o-up"></i>赞(${comment.like_num})</a><br/>
           						<script type="text/javascript">
           							$(function(){
-          								$("#like${comment_cid }").click(function(){
+          								$("#like${comment.cid }").click(function(){
           									$.post(
           										"/Jsp_blog/comment/ajax_like.do",
-          										{cid: "${comment.cid}"},
-          										function(){
-          											
-          										}
+          										{cid: "${comment.cid}"}
           									)
           									window.location.reload();
           								})
