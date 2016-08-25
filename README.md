@@ -101,8 +101,9 @@ catalog:
 |child5|varchar(256)|
 
 friend:
-|name|type|
-|----|----|
-|fid|int|
-|source|int|
-|target|int|
+
+|name|type|  
+|----|----|  
+|fid|int|  
+|source|int|  
+|target|int|  
