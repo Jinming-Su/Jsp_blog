@@ -1,17 +1,10 @@
 package com.sjming.controller;
 
-import java.awt.geom.Ellipse2D;
 import java.util.Collections;
 import java.util.List;
 
-import javax.jws.WebParam.Mode;
-import javax.net.ssl.SSLException;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.Session;
-import org.apache.catalina.ha.session.SimpleTcpReplicationManager;
-import org.apache.catalina.startup.Embedded;
-import org.apache.el.MethodExpressionLiteral;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +20,8 @@ import com.sjming.model.ArticleVO;
 import com.sjming.model.CommentVO;
 import com.sjming.model.FriendVO;
 import com.sjming.model.UserVO;
-import com.sun.java.swing.plaf.motif.resources.motif;
-import com.sun.org.apache.xml.internal.serializer.ElemDesc;
-import com.sun.xml.internal.ws.policy.EffectiveAlternativeSelector;
 
-import groovy.lang.IntRange;
+
 
 @Controller
 @RequestMapping("/auth")
@@ -77,12 +67,12 @@ public class UserController {
 			session.setAttribute("loginLevel", users.get(0).getLevel());
 			model.addAttribute("info1", "登录成功");
 			model.addAttribute("info2", "博客主页");
-			model.addAttribute("url", "http://localhost:8080/Jsp_blog/article/list/1.do");
+			model.addAttribute("url", "/Jsp_blog/article/list/1.do");
 			return "other/loading";
 		} else {
 			model.addAttribute("info1", "登录失败");
 			model.addAttribute("info2", "博客主页，进行重新登录");
-			model.addAttribute("url", "http://localhost:8080/Jsp_blog/article/list/1.do");
+			model.addAttribute("url", "/Jsp_blog/article/list/1.do");
 			return "other/loading";
 		}
 	}
@@ -118,7 +108,7 @@ public class UserController {
 			
 			model.addAttribute("info1", "注册成功");
 			model.addAttribute("info2", "博客主页");
-			model.addAttribute("url", "http://localhost:8080/Jsp_blog/article/list/1.do");
+			model.addAttribute("url", "/Jsp_blog/article/list/1.do");
 			
 			UserVO userVO = new UserVO(email, password);
 			userDao.insert(userVO);
