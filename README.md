@@ -54,38 +54,45 @@ A universal blog
 ### database table  
 article:  
 
-|name|type|
-|----|----|
-|aid|int primary key|
-|title|varchar(256)|
-|content|text|
-|key_word|varchar(256)|
-|father_catalog|varchar(256)|
-|son_catalog|varchar(256)|
-|auther|varchar(256)|
-|created_time|Date|
+|name|type|default|  
+|----|----|----|  
+|aid|int primary key||  
+|title|varchar(256)||  
+|content|text||  
+|key_word|varchar(256)||  
+|father_catalog|varchar(256)||  
+|son_catalog|varchar(256)||  
+|auther|varchar(256)||  
+|created_time|Date|current_timestamp|  
+|access_num|int|0|  
 
 user:  
 
-|name|type|default|
-|----|----|----|
-|uid|int pk||
-|email|varchar(256)||
-|password|varchar(256)||
-|score|int|0|
-|level|int|3|
-|created_time|timestamp|current_timestamp|
+|name|type|default|  
+|----|----|----|  
+|uid|int pk||  
+|email|varchar(256)||  
+|password|varchar(256)||  
+|score|int|0|  
+|level|int|3|  
+|created_time|timestamp|current_timestamp|    
+|education|varchar(256)||  
+|address|varchar(256)||  
+|skill1|varchar(256)||  
+|skill2|varchar(256)||  
+|skill3|varchar(256)||  
 
 
 comment:
 
-|name| type|
-|----|----|
-|cid|int pk|
-|content|text|
-|aid|int|
-|uid|int|
-|create_time|timestamp|
+|name| type|default|  
+|----|----|----|  
+|cid|int pk||  
+|content|text||  
+|aid|int||  
+|uid|int||  
+|create_time|timestamp|current_timestamp|  
+|like_num|int|0|  
 
 catalog:
 
